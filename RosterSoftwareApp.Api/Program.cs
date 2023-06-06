@@ -1,6 +1,6 @@
 using RosterSoftwareApp.Api.Entities;
 
-const string GetEventEndPointName = "GetEvent";
+const string GetEventEndPointName = "GetEventByID";
 
 List<Event> events = new() {
     new Event() {
@@ -49,7 +49,7 @@ app.MapPost("/event", (Event ev) =>
     ev.Id = events.Max(e => e.Id) + 1;
     events.Add(ev);
 
-    // return the latest created
+    // return the latest created using the Get by ID
     return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
 });
 
@@ -64,6 +64,19 @@ app.MapPut("/event/{id}", (int id, Event updatedEv) =>
     ev.Title = updatedEv.Title;
     ev.Description = updatedEv.Description;
     ev.EventDate = updatedEv.EventDate;
+    return Results.NoContent();
+});
+
+// DELETE event
+
+app.MapDelete("/event/{id}", (int id) =>
+{
+    Event? ev = events.Find(e => e.Id == id);
+    if (ev is not null)
+    {
+        events.Remove(ev);
+    }
+
     return Results.NoContent();
 });
 
