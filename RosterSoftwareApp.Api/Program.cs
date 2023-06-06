@@ -26,11 +26,13 @@ List<Event> events = new() {
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+var groupRoute = app.MapGroup("/events");
+
 // Get all Events
-app.MapGet("/events", () => events);
+groupRoute.MapGet("/", () => events);
 
 // Get Event by ID 
-app.MapGet("/event/{id}", (int id) =>
+groupRoute.MapGet("/{id}", (int id) =>
 {
     Event? ev = events.Find(e => e.Id == id);
     if (ev is null)
@@ -44,7 +46,7 @@ app.MapGet("/event/{id}", (int id) =>
 }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
 
 // Create Event
-app.MapPost("/event", (Event ev) =>
+groupRoute.MapPost("/", (Event ev) =>
 {
     ev.Id = events.Max(e => e.Id) + 1;
     events.Add(ev);
@@ -54,7 +56,7 @@ app.MapPost("/event", (Event ev) =>
 });
 
 // Edit Event
-app.MapPut("/event/{id}", (int id, Event updatedEv) =>
+groupRoute.MapPut("/{id}", (int id, Event updatedEv) =>
 {
     Event? ev = events.Find(e => e.Id == id);
     if (ev is null)
@@ -69,7 +71,7 @@ app.MapPut("/event/{id}", (int id, Event updatedEv) =>
 
 // DELETE event
 
-app.MapDelete("/event/{id}", (int id) =>
+groupRoute.MapDelete("/{id}", (int id) =>
 {
     Event? ev = events.Find(e => e.Id == id);
     if (ev is not null)
