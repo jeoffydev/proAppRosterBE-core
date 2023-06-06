@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "2Xh5jSoIy2JtDl/AwN61pTioPBNkmsscEDOffHBIFkZkadr7b+7netSzCzhQcAvWZw8WLvbh2TaFrlcU4o/tLQ==",
+  "dgSpecHash": "NHmaMORAzfBPCiHoQpavD7NamQNodtFbG9uGd2uPFF+i/WwZly+IXgQ0kwyGrwibMEjPy4OD8QhOFQCQwz51PQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jeoffy\\Sites\\proAppRosterBE-core\\RosterSoftwareApp.Api\\RosterSoftwareApp.Api.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Jeoffy\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\Jeoffy\\.nuget\\packages\\minimalapis.extensions\\0.10.1\\minimalapis.extensions.0.10.1.nupkg.sha512",
+    "C:\\Users\\Jeoffy\\.nuget\\packages\\minivalidation\\0.7.2\\minivalidation.0.7.2.nupkg.sha512"
+  ],
   "logs": []
 }

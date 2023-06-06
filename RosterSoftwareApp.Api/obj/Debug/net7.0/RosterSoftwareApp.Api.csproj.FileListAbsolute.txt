@@ -24,3 +24,8 @@ C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0\RosterSoftwareApp.Api.pdb
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0\RosterSoftwareApp.Api.genruntimeconfig.cache
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0\ref\RosterSoftwareApp.Api.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\MinimalApis.Extensions.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\MiniValidation.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0\RosterSoftwareApp.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\obj\Debug\net7.0\RosterSoftwareApp.Api.csproj.CopyComplete
