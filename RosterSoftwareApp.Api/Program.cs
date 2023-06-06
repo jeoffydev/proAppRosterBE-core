@@ -1,5 +1,7 @@
 using RosterSoftwareApp.Api.Entities;
 
+const string GetEventEndPointName = "GetEvent";
+
 List<Event> events = new() {
     new Event() {
         Id = 1,
@@ -24,7 +26,10 @@ List<Event> events = new() {
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+// Get all Events
 app.MapGet("/events", () => events);
+
+// Get Event by ID 
 app.MapGet("/event/{id}", (int id) =>
 {
     Event? ev = events.Find(e => e.Id == id);
@@ -36,6 +41,16 @@ app.MapGet("/event/{id}", (int id) =>
     {
         return Results.Ok(ev);
     }
+}).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
+
+// Create Event
+app.MapPost("/event", (Event ev) =>
+{
+    ev.Id = events.Max(e => e.Id) + 1;
+    events.Add(ev);
+
+    // return the latest created
+    return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
 });
 
 app.Run();
