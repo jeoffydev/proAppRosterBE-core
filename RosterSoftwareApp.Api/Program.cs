@@ -53,4 +53,18 @@ app.MapPost("/event", (Event ev) =>
     return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
 });
 
+// Edit Event
+app.MapPut("/event/{id}", (int id, Event updatedEv) =>
+{
+    Event? ev = events.Find(e => e.Id == id);
+    if (ev is null)
+    {
+        return Results.NotFound();
+    }
+    ev.Title = updatedEv.Title;
+    ev.Description = updatedEv.Description;
+    ev.EventDate = updatedEv.EventDate;
+    return Results.NoContent();
+});
+
 app.Run();
