@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "rsgRY6yTGHYG7OGz6HGcYDtR303LwoOTc2tJlZMnMVY=",
+  "Source": "RosterSoftwareApp.Api",
+  "BasePath": "_content/RosterSoftwareApp.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
