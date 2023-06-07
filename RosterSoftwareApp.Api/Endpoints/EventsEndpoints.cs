@@ -9,16 +9,15 @@ public static class EventsEndpoints
 
     public static RouteGroupBuilder MapEventsEndpoint(this IEndpointRouteBuilder routes)
     {
-        InMemEventsRepository eventsRepository = new();
 
         var groupRoute = routes.MapGroup("/events")
                         .WithParameterValidation();
 
         // Get all Events
-        groupRoute.MapGet("/", () => eventsRepository.GetAll());
+        groupRoute.MapGet("/", (IEventsRepository eventsRepository) => eventsRepository.GetAll());
 
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", (int id) =>
+        groupRoute.MapGet("/{id}", (IEventsRepository eventsRepository, int id) =>
         {
             Event? ev = eventsRepository.GetEvent(id);
             return ev is not null ? Results.Ok(ev) : Results.NotFound();
@@ -26,7 +25,7 @@ public static class EventsEndpoints
         }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
 
         // Create Event
-        groupRoute.MapPost("/", (Event ev) =>
+        groupRoute.MapPost("/", (IEventsRepository eventsRepository, Event ev) =>
         {
             eventsRepository.CreateEvent(ev);
             // return the latest created using the Get by ID
@@ -34,7 +33,7 @@ public static class EventsEndpoints
         });
 
         // Edit Event
-        groupRoute.MapPut("/{id}", (int id, Event updatedEv) =>
+        groupRoute.MapPut("/{id}", (IEventsRepository eventsRepository, int id, Event updatedEv) =>
         {
             Event? ev = eventsRepository.GetEvent(id);
             if (ev is null)
@@ -53,7 +52,7 @@ public static class EventsEndpoints
 
         // DELETE event
 
-        groupRoute.MapDelete("/{id}", (int id) =>
+        groupRoute.MapDelete("/{id}", (IEventsRepository eventsRepository, int id) =>
         {
             Event? ev = eventsRepository.GetEvent(id);
             if (ev is not null)

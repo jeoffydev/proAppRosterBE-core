@@ -2,7 +2,7 @@ using RosterSoftwareApp.Api.Entities;
 
 namespace RosterSoftwareApp.Api.Repositories;
 
-public class InMemEventsRepository
+public class InMemEventsRepository : IEventsRepository
 {
     private List<Event> events = new() {
         new Event() {
