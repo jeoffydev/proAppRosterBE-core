@@ -9,7 +9,6 @@ dotnet run
 
 # Use postman to check APIs
 
-
 ## Starting SQL server
 
 ## Go to hub.docker.com 
@@ -21,6 +20,15 @@ $sa_password="[SA PASSWORD HERE]"
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=$sa_password" -p 1433:1433 -v sqlvolumes:/var/opt/mssql -d --rm --name mssql mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-Ddd where to store our data files in docker to -v sqlVolume:/var/opt/mssql, --rm (remove) and 
+This is where to store our data files in docker to -v sqlVolume:/var/opt/mssql, --rm (remove) and 
 --name rosterMssql for not getting a random name in container
 
+# Secret manager setup for DB password to run into terminal
+run first to get the secret ID:
+dotnet user-secrets init 
+
+$sa_password="[SA PASSWORD HERE]"
+dotnet user-secrets set "ConnectionStrings:RosterAppContext" "Server=localhost; Database=RosterAppDB; User Id=sa; Password=$sa_password; TrustServerCertificate=True"
+
+Check if working:
+dotnet user-secrets list
