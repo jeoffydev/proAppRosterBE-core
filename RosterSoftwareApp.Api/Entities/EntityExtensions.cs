@@ -12,7 +12,8 @@ public static class EntityExtensions
             events.Title,
             events.EventDate,
             events.EventTime,
-            events.Description
+            events.Description,
+            events.Active
         );
     }
 }

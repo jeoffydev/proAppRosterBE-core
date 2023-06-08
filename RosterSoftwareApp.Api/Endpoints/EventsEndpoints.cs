@@ -35,7 +35,8 @@ public static class EventsEndpoints
                 Title = evDto.Title,
                 EventDate = evDto.EventDate,
                 EventTime = evDto.EventTime,
-                Description = evDto.Description
+                Description = evDto.Description,
+                Active = evDto.Active
             };
             eventsRepository.CreateEvent(ev);
             // return the latest created using the Get by ID
@@ -54,6 +55,7 @@ public static class EventsEndpoints
             ev.Description = updateEventDto.Description;
             ev.EventDate = updateEventDto.EventDate;
             ev.EventTime = updateEventDto.EventTime;
+            ev.Active = updateEventDto.Active;
 
             eventsRepository.UpdateEvent(ev);
 

@@ -7,7 +7,8 @@ public record EventDto(
     string Title,
     DateTime? EventDate,
     string EventTime,
-    string Description
+    string Description,
+    bool Active
 );
 
 public record CreateEventDto(
@@ -20,7 +21,9 @@ public record CreateEventDto(
     [Required]
     string EventTime,
      [Required]
-    string Description
+    string Description,
+     [Required]
+     bool Active
 );
 
 public record UpdateEventDto(
@@ -33,5 +36,7 @@ public record UpdateEventDto(
     [Required]
     string EventTime,
      [Required]
-    string Description
+    string Description,
+     [Required]
+     bool Active
 );
