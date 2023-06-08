@@ -44,7 +44,7 @@ public static class EventsEndpoints
         });
 
         // Edit Event
-        groupRoute.MapPut("/{id}", (IEventsRepository eventsRepository, int id, EventDto updateEventDto) =>
+        groupRoute.MapPut("/{id}", (IEventsRepository eventsRepository, int id, UpdateEventDto updateEventDto) =>
         {
             Event? ev = eventsRepository.GetEvent(id);
             if (ev is null)

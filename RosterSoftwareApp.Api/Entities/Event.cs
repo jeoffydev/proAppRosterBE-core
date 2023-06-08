@@ -9,7 +9,7 @@ public class Event
     [StringLength(100)]
     public required string Title { get; set; }
     [Required]
-    public DateTime? EventDate { get; set; }
+    public required DateOnly? EventDate { get; set; }
     [Required]
     [StringLength(10)]
     public required string EventTime { get; set; }

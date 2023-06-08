@@ -8,7 +8,7 @@ public class InMemEventsRepository : IEventsRepository
         new Event() {
             Id = 1,
             Title = "Title1",
-            EventDate = new DateTime(2023, 6, 7),
+            EventDate = new DateOnly(2023, 6, 7),
             EventTime = "10:00AM",
             Description = "Test1 Description",
             Active = true
@@ -16,7 +16,7 @@ public class InMemEventsRepository : IEventsRepository
         new Event() {
             Id = 2,
             Title = "Title2",
-            EventDate = new DateTime(2023, 7, 8),
+            EventDate = new DateOnly(2023, 7, 8),
             EventTime = "11:00AM",
             Description = "Test2 Description",
             Active = true
@@ -24,7 +24,7 @@ public class InMemEventsRepository : IEventsRepository
         new Event() {
             Id = 3,
             Title = "Title3",
-            EventDate = new DateTime(2023, 8, 9),
+            EventDate = new DateOnly(2023, 8, 9),
             EventTime = "12:00PM",
             Description = "Test3 Description",
             Active = false
