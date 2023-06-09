@@ -1,22 +1,16 @@
 
 
 using RosterSoftwareApp.Api.Endpoints;
-using RosterSoftwareApp.Api.Repositories;
 using RosterSoftwareApp.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// This is where to add or Register your dependency injection
-builder.Services.AddSingleton<IEventsRepository, InMemEventsRepository>();
-
-var connectionDBString = builder.Configuration.GetConnectionString("RosterAppContext");
-
-// Add the DB connectionString
-builder.Services.AddSqlServer<RosterStoreContext>(connectionDBString);
+builder.Services.AddRepositories(builder.Configuration);
 
 var app = builder.Build();
 
-
+// to automatically migrate the EF changes
+app.Services.InitializeDbMigration();
 
 app.MapEventsEndpoint();
 
