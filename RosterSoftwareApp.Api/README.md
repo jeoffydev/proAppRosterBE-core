@@ -27,8 +27,24 @@ This is where to store our data files in docker to -v sqlVolume:/var/opt/mssql, 
 run first to get the secret ID:
 dotnet user-secrets init 
 
+``` run this
 $sa_password="[SA PASSWORD HERE]"
 dotnet user-secrets set "ConnectionStrings:RosterAppContext" "Server=localhost; Database=RosterAppDB; User Id=sa; Password=$sa_password; TrustServerCertificate=True"
+```
 
 Check if working:
 dotnet user-secrets list
+
+# Install package for Entity Framework Core
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+Tool for EF install it globally and check dotnet-ef --version 
+dotnet tool install --global dotnet-ef
+
+Add nuget package to scafold the migrations of EF: 
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+# run Migration EF
+dotnet ef migrations add InitialCreate --output-dir Data/Migrations
+
+dotnet ef database update

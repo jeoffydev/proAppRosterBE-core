@@ -5,7 +5,7 @@ namespace RosterSoftwareApp.Api.Dtos;
 public record EventDto(
     int Id,
     string Title,
-    DateOnly? EventDate,
+    DateTime? EventDate,
     string EventTime,
     string Description,
     bool Active
@@ -16,7 +16,7 @@ public record CreateEventDto(
     [StringLength(100)]
     string Title,
     [Required]
-    DateOnly? EventDate,
+    DateTime? EventDate,
     [StringLength(10)]
     [Required]
     string EventTime,
@@ -31,7 +31,7 @@ public record UpdateEventDto(
     [StringLength(100)]
     string Title,
     [Required]
-    DateOnly? EventDate,
+    DateTime? EventDate,
     [Required]
     string EventTime,
      [Required]
