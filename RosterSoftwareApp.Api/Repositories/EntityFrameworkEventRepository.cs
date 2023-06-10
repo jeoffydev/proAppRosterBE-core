@@ -16,30 +16,30 @@ public class EntityFrameworkEventRepository : IEventsRepository
         this.dbContext = dbContext;
     }
 
-    public IEnumerable<Event> GetAll()
+    public async Task<IEnumerable<Event>> GetAllAsync()
     {
-        return dbContext.Events.AsNoTracking().ToList();
+        return await dbContext.Events.AsNoTracking().ToListAsync();
     }
 
-    public Event? GetEvent(int id)
+    public async Task<Event?> GetEventAsync(int id)
     {
-        return dbContext.Events.Find(id);
+        return await dbContext.Events.FindAsync(id);
     }
 
-    public void CreateEvent(Event ev)
+    public async Task CreateEventAsync(Event ev)
     {
         dbContext.Events.Add(ev);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 
-    public void UpdateEvent(Event updatedEvent)
+    public async Task UpdateEventAsync(Event updatedEvent)
     {
         dbContext.Events.Update(updatedEvent);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 
-    public void DeleteEvent(int id)
+    public async Task DeleteEventAsync(int id)
     {
-        dbContext.Events.Where(e => e.Id == id).ExecuteDelete();
+        await dbContext.Events.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
 }

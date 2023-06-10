@@ -31,32 +31,38 @@ public class InMemEventsRepository : IEventsRepository
         }
     };
 
-    public IEnumerable<Event> GetAll()
+    public async Task<IEnumerable<Event>> GetAllAsync()
     {
-        return events;
+        return await Task.FromResult(events);
     }
 
-    public Event? GetEvent(int id)
+    public async Task<Event?> GetEventAsync(int id)
     {
-        return events.Find(e => e.Id == id);
+        return await Task.FromResult(events.Find(e => e.Id == id));
     }
 
-    public void CreateEvent(Event ev)
+    public async Task CreateEventAsync(Event ev)
     {
         ev.Id = events.Max(e => e.Id) + 1;
         events.Add(ev);
+
+        await Task.CompletedTask;
     }
 
-    public void UpdateEvent(Event updatedEvent)
+    public async Task UpdateEventAsync(Event updatedEvent)
     {
         var findIndex = events.FindIndex(e => e.Id == updatedEvent.Id);
         events[findIndex] = updatedEvent;
+
+        await Task.CompletedTask;
     }
 
-    public void DeleteEvent(int id)
+    public async Task DeleteEventAsync(int id)
     {
         var findIndex = events.FindIndex(e => e.Id == id);
         events.RemoveAt(findIndex);
+
+        await Task.CompletedTask;
     }
 
 }

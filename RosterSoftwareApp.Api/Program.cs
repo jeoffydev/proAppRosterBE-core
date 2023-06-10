@@ -10,7 +10,7 @@ builder.Services.AddRepositories(builder.Configuration);
 var app = builder.Build();
 
 // to automatically migrate the EF changes
-app.Services.InitializeDbMigration();
+await app.Services.InitializeDbMigrationAsync();
 
 app.MapEventsEndpoint();
 

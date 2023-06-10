@@ -15,19 +15,19 @@ public static class EventsEndpoints
                         .WithParameterValidation();
 
         // Get all Events
-        groupRoute.MapGet("/", (IEventsRepository eventsRepository) =>
-        eventsRepository.GetAll().Select(e => e.AsDto()));
+        groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
+        (await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
 
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", (IEventsRepository eventsRepository, int id) =>
+        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, int id) =>
         {
-            Event? ev = eventsRepository.GetEvent(id);
+            Event? ev = await eventsRepository.GetEventAsync(id);
             return ev is not null ? Results.Ok(ev.AsDto()) : Results.NotFound();
 
         }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
 
         // Create Event and received the Dtos type
-        groupRoute.MapPost("/", (IEventsRepository eventsRepository, CreateEventDto evDto) =>
+        groupRoute.MapPost("/", async (IEventsRepository eventsRepository, CreateEventDto evDto) =>
         {
             //Map the DTOs type to Event type
             Event ev = new()
@@ -38,15 +38,15 @@ public static class EventsEndpoints
                 Description = evDto.Description,
                 Active = evDto.Active
             };
-            eventsRepository.CreateEvent(ev);
+            await eventsRepository.CreateEventAsync(ev);
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
         });
 
         // Edit Event
-        groupRoute.MapPut("/{id}", (IEventsRepository eventsRepository, int id, UpdateEventDto updateEventDto) =>
+        groupRoute.MapPut("/{id}", async (IEventsRepository eventsRepository, int id, UpdateEventDto updateEventDto) =>
         {
-            Event? ev = eventsRepository.GetEvent(id);
+            Event? ev = await eventsRepository.GetEventAsync(id);
             if (ev is null)
             {
                 return Results.NotFound();
@@ -57,19 +57,19 @@ public static class EventsEndpoints
             ev.EventTime = updateEventDto.EventTime;
             ev.Active = updateEventDto.Active;
 
-            eventsRepository.UpdateEvent(ev);
+            await eventsRepository.UpdateEventAsync(ev);
 
             return Results.NoContent();
         });
 
         // DELETE event
 
-        groupRoute.MapDelete("/{id}", (IEventsRepository eventsRepository, int id) =>
+        groupRoute.MapDelete("/{id}", async (IEventsRepository eventsRepository, int id) =>
         {
-            Event? ev = eventsRepository.GetEvent(id);
+            Event? ev = await eventsRepository.GetEventAsync(id);
             if (ev is not null)
             {
-                eventsRepository.DeleteEvent(id);
+                await eventsRepository.DeleteEventAsync(id);
             }
             return Results.NoContent();
         });
