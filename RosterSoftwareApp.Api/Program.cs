@@ -13,5 +13,6 @@ var app = builder.Build();
 await app.Services.InitializeDbMigrationAsync();
 
 app.MapEventsEndpoint();
+app.MapSongsEndpoint();
 
 app.Run();

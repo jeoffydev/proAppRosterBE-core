@@ -1,4 +1,5 @@
 
+using RosterSoftwareApp.Api.AllDtos;
 using RosterSoftwareApp.Api.Dtos;
 
 namespace RosterSoftwareApp.Api.Entities;
@@ -16,4 +17,19 @@ public static class EntityExtensions
             events.Active
         );
     }
+
+     public static SongDto AsSongDto(this Song songs)
+    {
+        return new SongDto(
+            songs.Id,
+            songs.Title,
+            songs.Artist,
+            songs.SongUrl,
+            songs.Description,
+            songs.ToLearn
+        );
+    }
+
+
+
 }
