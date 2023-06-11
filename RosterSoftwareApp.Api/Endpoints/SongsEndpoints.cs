@@ -41,6 +41,37 @@ public static class SongsEndpoints
             return Results.CreatedAtRoute(GetSongEndPointName, new { Id = so.Id }, so);
         });
 
+        // Edit Song
+        groupRoute.MapPut("/{id}", async (ISongRepository songRepository, int id, UpdateSongDto updateSongDto) =>
+        {
+            Song? so = await songRepository.GetSongAsync(id);
+            if (so is null)
+            {
+                return Results.NotFound();
+            }
+            so.Title = updateSongDto.Title;
+            so.Artist = updateSongDto.Artist;
+            so.SongUrl = updateSongDto.SongUrl;
+            so.Description = updateSongDto.Description;
+            so.ToLearn = updateSongDto.ToLearn;
+
+            await songRepository.UpdateSongAsync(so);
+
+            return Results.NoContent();
+        });
+
+        // DELETE song
+
+        groupRoute.MapDelete("/{id}", async (ISongRepository songRepository, int id) =>
+        {
+            Song? so = await songRepository.GetSongAsync(id);
+            if (so is not null)
+            {
+                await songRepository.DeleteSongAsync(id);
+            }
+            return Results.NoContent();
+        });
+
         return groupRoute;
     }
 }
