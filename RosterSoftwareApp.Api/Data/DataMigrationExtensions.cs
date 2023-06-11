@@ -23,7 +23,8 @@ public static class DataMigrationExtensions
         // Add the DB connectionString
         // previous code for not using the DBcontext ->  .AddSingleton<IEventsRepository, InMemEventsRepository>();
         services.AddSqlServer<RosterStoreContext>(connectionDBString)
-        .AddScoped<IEventsRepository, EntityFrameworkEventRepository>();
+        .AddScoped<IEventsRepository, EntityFrameworkEventRepository>()
+        .AddScoped<ISongRepository, EntityFrameworkSongRepository>();
 
         return services;
     }
