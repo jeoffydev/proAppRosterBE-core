@@ -11,15 +11,19 @@ public class InMemEventsRepository : IEventsRepository
             EventDate = new DateTime(2023, 6, 7),
             EventTime = "10:00AM",
             Description = "Test1 Description",
-            Active = true
+            Active = true,
+            EventSongs = new(){
+            }
         },
         new Event() {
             Id = 2,
-            Title = "Title2",
+            Title = "Title 2",
             EventDate = new DateTime(2023, 7, 8),
             EventTime = "11:00AM",
             Description = "Test2 Description",
-            Active = true
+            Active = true,
+            EventSongs = new(){
+            }
         },
         new Event() {
             Id = 3,
@@ -27,11 +31,13 @@ public class InMemEventsRepository : IEventsRepository
             EventDate = new DateTime(2023, 8, 9),
             EventTime = "12:00PM",
             Description = "Test3 Description",
-            Active = false
+            Active = false,
+            EventSongs = new(){
+            }
         }
     };
 
-    public async Task<IEnumerable<Event>> GetAllAsync()
+    public async Task<IEnumerable<object>> GetAllAsync()
     {
         return await Task.FromResult(events);
     }

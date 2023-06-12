@@ -14,11 +14,12 @@ public static class EntityExtensions
             events.EventDate,
             events.EventTime,
             events.Description,
-            events.Active
+            events.Active,
+            events.EventSongs
         );
     }
 
-     public static SongDto AsSongDto(this Song songs)
+    public static SongDto AsSongDto(this Song songs)
     {
         return new SongDto(
             songs.Id,
@@ -27,6 +28,17 @@ public static class EntityExtensions
             songs.SongUrl,
             songs.Description,
             songs.ToLearn
+        );
+    }
+
+    public static EventSongDto AsEventSongDto(this EventSong eventsong)
+    {
+        return new EventSongDto(
+            eventsong.Id,
+            eventsong.EventId,
+            eventsong.Event,
+            eventsong.SongId,
+            eventsong.Song
         );
     }
 

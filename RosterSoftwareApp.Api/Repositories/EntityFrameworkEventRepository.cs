@@ -16,9 +16,22 @@ public class EntityFrameworkEventRepository : IEventsRepository
         this.dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Event>> GetAllAsync()
+    public async Task<IEnumerable<object>> GetAllAsync()
     {
-        return await dbContext.Events.AsNoTracking().ToListAsync();
+
+        return await dbContext.Events
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Title,
+                    c.EventDate,
+                    c.Description,
+                    c.EventTime,
+                    c.Active,
+                    EventSong = c.EventSongs
+                        .Select(e => new { e.Id, e.Song })
+                        .ToList()
+                }).ToListAsync();
     }
 
     public async Task<Event?> GetEventAsync(int id)

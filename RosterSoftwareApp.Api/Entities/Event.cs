@@ -17,4 +17,6 @@ public class Event
     public required string Description { get; set; }
     [Required]
     public required bool Active { get; set; } = false;
+
+    public required List<EventSong> EventSongs { get; set; }
 }

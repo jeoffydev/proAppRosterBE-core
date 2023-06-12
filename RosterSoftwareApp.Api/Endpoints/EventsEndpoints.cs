@@ -16,7 +16,9 @@ public static class EventsEndpoints
 
         // Get all Events
         groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
-        (await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
+        (
+            await eventsRepository.GetAllAsync()).Select(e => e)
+        );
 
         // Get Event by ID 
         groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, int id) =>
@@ -27,7 +29,9 @@ public static class EventsEndpoints
         }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
 
         // Create Event and received the Dtos type
-        groupRoute.MapPost("/", async (IEventsRepository eventsRepository, CreateEventDto evDto) =>
+        groupRoute.MapPost("/", async (
+            IEventsRepository eventsRepository,
+            CreateEventDto evDto) =>
         {
             //Map the DTOs type to Event type
             Event ev = new()
@@ -36,9 +40,33 @@ public static class EventsEndpoints
                 EventDate = evDto.EventDate,
                 EventTime = evDto.EventTime,
                 Description = evDto.Description,
-                Active = evDto.Active
+                Active = evDto.Active,
+                EventSongs = new() { }
             };
+
             await eventsRepository.CreateEventAsync(ev);
+
+            // Save songs ID
+            // if (evDto.SongIds is not null)
+            // {
+            //     int[] songIds = evDto.SongIds;
+            //     if (songIds.Length > 0)
+            //     {
+            //         foreach (var so in songIds)
+            //         {
+            //             EventSong es = new()
+            //             {
+            //                 EventId = ev.Id,
+            //                 SongId = so
+            //             };
+
+            //             await eventSongRepository.CreateMultipleEventSongAsync(es);
+
+            //         }
+            //         await eventSongRepository.CreateEventSongAsync();
+            //     }
+            // }
+
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
         });
