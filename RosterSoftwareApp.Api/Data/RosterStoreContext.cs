@@ -16,6 +16,8 @@ public class RosterStoreContext : DbContext
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Song> Songs => Set<Song>();
 
+    public DbSet<EventSong> EventSongs => Set<EventSong>();
+
     // add this after adding the EventConfiguration
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

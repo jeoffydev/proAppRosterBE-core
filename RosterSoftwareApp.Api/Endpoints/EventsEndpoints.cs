@@ -1,6 +1,8 @@
 using RosterSoftwareApp.Api.Dtos;
 using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
+using RosterSoftwareApp.Api.ViewModels;
+using RosterSoftwareApp.Api.Data;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -16,18 +18,36 @@ public static class EventsEndpoints
 
         // Get all Events
         groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
-        (await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
+        (
+            await eventsRepository.GetAllAsync()).Select(e => e.AsDto())
+        ).RequireAuthorization(PoliciesClaim.WriteAccess);
+
+
 
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, int id) =>
+        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, int id) =>
         {
             Event? ev = await eventsRepository.GetEventAsync(id);
-            return ev is not null ? Results.Ok(ev.AsDto()) : Results.NotFound();
+            var evs = (List<EventSong>)await eventSongRepository.GetEventSongByEventIdAsync(id);
 
-        }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
+            if (ev is not null)
+            {
+                var EventAndSongs = new EventViewModel
+                {
+                    Event = ev,
+                    EventSongs = evs
+                };
+                return Results.Ok(EventAndSongs);
+            }
+            return Results.NotFound();
+
+        }).WithName(GetEventEndPointName)
+        .RequireAuthorization(PoliciesClaim.WriteAccess); //so we can use after the create result CreatedAtRoute()
 
         // Create Event and received the Dtos type
-        groupRoute.MapPost("/", async (IEventsRepository eventsRepository, CreateEventDto evDto) =>
+        groupRoute.MapPost("/", async (
+            IEventsRepository eventsRepository,
+            CreateEventDto evDto) =>
         {
             //Map the DTOs type to Event type
             Event ev = new()
@@ -36,12 +56,15 @@ public static class EventsEndpoints
                 EventDate = evDto.EventDate,
                 EventTime = evDto.EventTime,
                 Description = evDto.Description,
-                Active = evDto.Active
+                Active = evDto.Active,
+                EventSongs = new() { }
             };
+
             await eventsRepository.CreateEventAsync(ev);
+
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
         // Edit Event
         groupRoute.MapPut("/{id}", async (IEventsRepository eventsRepository, int id, UpdateEventDto updateEventDto) =>
@@ -60,7 +83,7 @@ public static class EventsEndpoints
             await eventsRepository.UpdateEventAsync(ev);
 
             return Results.NoContent();
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
         // DELETE event
 
@@ -72,7 +95,10 @@ public static class EventsEndpoints
                 await eventsRepository.DeleteEventAsync(id);
             }
             return Results.NoContent();
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
+
+
 
         return groupRoute;
     }

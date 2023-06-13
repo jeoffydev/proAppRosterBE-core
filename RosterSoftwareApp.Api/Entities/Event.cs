@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RosterSoftwareApp.Api.Entities;
 
@@ -17,4 +18,7 @@ public class Event
     public required string Description { get; set; }
     [Required]
     public required bool Active { get; set; } = false;
+
+    [NotMapped]
+    public required List<EventSong> EventSongs { get; set; }
 }

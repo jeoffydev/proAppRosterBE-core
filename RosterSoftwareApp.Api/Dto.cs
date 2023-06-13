@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using RosterSoftwareApp.Api.Entities;
 
 namespace RosterSoftwareApp.Api.Dtos;
 
@@ -8,7 +9,8 @@ public record EventDto(
     DateTime? EventDate,
     string EventTime,
     string Description,
-    bool Active
+    bool Active,
+    List<EventSong>? EventSongs
 );
 
 public record CreateEventDto(
@@ -23,7 +25,8 @@ public record CreateEventDto(
      [Required]
     string Description,
      [Required]
-     bool Active
+     bool Active,
+     int[]? SongIds
 );
 
 public record UpdateEventDto(

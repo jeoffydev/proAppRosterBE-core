@@ -14,6 +14,14 @@ public static class DataMigrationExtensions
         await dbContext.Database.MigrateAsync();
     }
 
+
+    public static IServiceCollection JsonHandler(this IServiceCollection serviceProvider)
+    {
+        serviceProvider.AddControllers().AddNewtonsoftJson(x =>
+            x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+        return serviceProvider;
+    }
+
     public static IServiceCollection AddRepositories(
         this IServiceCollection services,
         IConfiguration configuration
@@ -24,7 +32,8 @@ public static class DataMigrationExtensions
         // previous code for not using the DBcontext ->  .AddSingleton<IEventsRepository, InMemEventsRepository>();
         services.AddSqlServer<RosterStoreContext>(connectionDBString)
         .AddScoped<IEventsRepository, EntityFrameworkEventRepository>()
-        .AddScoped<ISongRepository, EntityFrameworkSongRepository>();
+        .AddScoped<ISongRepository, EntityFrameworkSongRepository>()
+        .AddScoped<IEventSongRepository, EntityFrameworkEventSongRepository>();
 
         return services;
     }
