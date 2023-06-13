@@ -4,6 +4,7 @@ using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace RosterSoftwareApp.Api.Repositories;
 
 public class EntityFrameworkEventRepository : IEventsRepository
@@ -16,22 +17,24 @@ public class EntityFrameworkEventRepository : IEventsRepository
         this.dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<object>> GetAllAsync()
+    public async Task<IEnumerable<Event>> GetAllAsync()
     {
-
         return await dbContext.Events
-                .Select(c => new
-                {
-                    c.Id,
-                    c.Title,
-                    c.EventDate,
-                    c.Description,
-                    c.EventTime,
-                    c.Active,
-                    EventSong = c.EventSongs
-                        .Select(e => new { e.Id, e.Song })
-                        .ToList()
-                }).ToListAsync();
+        .AsNoTracking().ToListAsync();
+
+        // return await dbContext.Events
+        //         .Select(c => new
+        //         {
+        //             c.Id,
+        //             c.Title,
+        //             c.EventDate,
+        //             c.Description,
+        //             c.EventTime,
+        //             c.Active,
+        //             EventSong = c.EventSongs
+        //                 .Select(e => new { e.Id, e.Song })
+        //                 .ToList()
+        //         }).ToListAsync();
     }
 
     public async Task<Event?> GetEventAsync(int id)
@@ -55,4 +58,5 @@ public class EntityFrameworkEventRepository : IEventsRepository
     {
         await dbContext.Events.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
+
 }

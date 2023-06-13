@@ -1,6 +1,7 @@
 using RosterSoftwareApp.Api.Dtos;
 using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
+using RosterSoftwareApp.Api.ViewModels;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -17,14 +18,27 @@ public static class EventsEndpoints
         // Get all Events
         groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
         (
-            await eventsRepository.GetAllAsync()).Select(e => e)
+            await eventsRepository.GetAllAsync()).Select(e => e.AsDto())
         );
 
+
+
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, int id) =>
+        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, int id) =>
         {
             Event? ev = await eventsRepository.GetEventAsync(id);
-            return ev is not null ? Results.Ok(ev.AsDto()) : Results.NotFound();
+            var evs = (List<EventSong>)await eventSongRepository.GetEventSongByEventIdAsync(id);
+
+            if (ev is not null)
+            {
+                var EventAndSongs = new EventViewModel
+                {
+                    Event = ev,
+                    EventSongs = evs
+                };
+                return Results.Ok(EventAndSongs);
+            }
+            return Results.NotFound();
 
         }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
 

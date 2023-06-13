@@ -26,6 +26,13 @@ public static class EventSongsEndpoint
 
         }).WithName(GetEventSongEndPointName);
 
+        // Get Song by event ID 
+        groupRoute.MapGet("/eventId/{id}", async (IEventSongRepository eventSongRepository, int id) =>
+        {
+            return (await eventSongRepository.GetEventSongByEventIdAsync(id)).Select(e => e.AsEventSongDto());
+
+        });
+
         // Get Song by object
         groupRoute.MapPost("/Get", async (IEventSongRepository eventSongRepository, GetEventSongDto esDto) =>
         {

@@ -37,12 +37,17 @@ public class InMemEventsRepository : IEventsRepository
         }
     };
 
-    public async Task<IEnumerable<object>> GetAllAsync()
+    public async Task<IEnumerable<Event>> GetAllAsync()
     {
         return await Task.FromResult(events);
     }
 
     public async Task<Event?> GetEventAsync(int id)
+    {
+        return await Task.FromResult(events.Find(e => e.Id == id));
+    }
+
+    public async Task<object?> GetEventWithSongsAsync(int id)
     {
         return await Task.FromResult(events.Find(e => e.Id == id));
     }

@@ -12,6 +12,11 @@ public record EventSongDto(
     Song? Song
 );
 
+public record EventAndSongDto(
+    Event Event,
+    List<EventSongDto> EventSongDtos
+);
+
 public record GetEventSongDto(
     [Required]
      int EventId,

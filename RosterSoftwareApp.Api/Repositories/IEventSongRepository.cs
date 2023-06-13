@@ -11,5 +11,7 @@ public interface IEventSongRepository
 
     Task<EventSong?> GetEventSongByIdAsync(int id);
 
+    Task<IEnumerable<EventSong>> GetEventSongByEventIdAsync(int id);
+
     Task DeleteEventSongAsync(int id);
 }

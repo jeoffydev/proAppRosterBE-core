@@ -29,6 +29,16 @@ public class EntityFrameworkEventSongRepository : IEventSongRepository
         .FirstOrDefaultAsync();
     }
 
+
+    public async Task<IEnumerable<EventSong>> GetEventSongByEventIdAsync(int id)
+    {
+        return await dbContext.EventSongs
+        .Include(s => s.Song)
+        .AsNoTracking()
+        .Where(s => s.EventId == id)
+        .ToListAsync();
+    }
+
     public async Task<EventSong?> GetEventSongByIdAsync(int id)
     {
         return await dbContext.EventSongs

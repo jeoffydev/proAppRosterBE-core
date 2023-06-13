@@ -6,7 +6,8 @@ public interface IEventsRepository
 {
     Task CreateEventAsync(Event ev);
     Task DeleteEventAsync(int id);
-    Task<IEnumerable<object>> GetAllAsync();
+    Task<IEnumerable<Event>> GetAllAsync();
+
     Task<Event?> GetEventAsync(int id);
     Task UpdateEventAsync(Event updatedEvent);
 }
