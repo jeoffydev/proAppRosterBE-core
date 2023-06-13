@@ -2,6 +2,7 @@ using RosterSoftwareApp.Api.Dtos;
 using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
 using RosterSoftwareApp.Api.ViewModels;
+using RosterSoftwareApp.Api.Data;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -19,7 +20,7 @@ public static class EventsEndpoints
         groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
         (
             await eventsRepository.GetAllAsync()).Select(e => e.AsDto())
-        );
+        ).RequireAuthorization(PoliciesClaim.WriteAccess);
 
 
 
@@ -40,7 +41,8 @@ public static class EventsEndpoints
             }
             return Results.NotFound();
 
-        }).WithName(GetEventEndPointName); //so we can use after the create result CreatedAtRoute()
+        }).WithName(GetEventEndPointName)
+        .RequireAuthorization(PoliciesClaim.WriteAccess); //so we can use after the create result CreatedAtRoute()
 
         // Create Event and received the Dtos type
         groupRoute.MapPost("/", async (
@@ -60,30 +62,9 @@ public static class EventsEndpoints
 
             await eventsRepository.CreateEventAsync(ev);
 
-            // Save songs ID
-            // if (evDto.SongIds is not null)
-            // {
-            //     int[] songIds = evDto.SongIds;
-            //     if (songIds.Length > 0)
-            //     {
-            //         foreach (var so in songIds)
-            //         {
-            //             EventSong es = new()
-            //             {
-            //                 EventId = ev.Id,
-            //                 SongId = so
-            //             };
-
-            //             await eventSongRepository.CreateMultipleEventSongAsync(es);
-
-            //         }
-            //         await eventSongRepository.CreateEventSongAsync();
-            //     }
-            // }
-
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetEventEndPointName, new { Id = ev.Id }, ev);
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
         // Edit Event
         groupRoute.MapPut("/{id}", async (IEventsRepository eventsRepository, int id, UpdateEventDto updateEventDto) =>
@@ -102,7 +83,7 @@ public static class EventsEndpoints
             await eventsRepository.UpdateEventAsync(ev);
 
             return Results.NoContent();
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
         // DELETE event
 
@@ -114,7 +95,10 @@ public static class EventsEndpoints
                 await eventsRepository.DeleteEventAsync(id);
             }
             return Results.NoContent();
-        });
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
+
+
 
         return groupRoute;
     }

@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "gW3Ocbx3I41madGD0OPlhyB0A4mtSyCD8/VTUGNfPMSwAX7y6t5Fqrz/s1Y2XiBTH6eUdRNIwNC5/gZk5J7a+A==",
+  "dgSpecHash": "3nF/2ec0NlZjQVLWYzN9USfrjV0ae+KNpmjYc+a7GJgDtbxrnl2NJhH03ZE7h5sbcf7PCRurhicfOwqIJNt55A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jeoffy\\Sites\\proAppRosterBE-core\\RosterSoftwareApp.Api\\RosterSoftwareApp.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jeoffy\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Jeoffy\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Jeoffy\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Jeoffy\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.5\\microsoft.aspnetcore.authentication.jwtbearer.7.0.5.nupkg.sha512",
     "C:\\Users\\Jeoffy\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.5\\microsoft.aspnetcore.jsonpatch.7.0.5.nupkg.sha512",
     "C:\\Users\\Jeoffy\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\7.0.5\\microsoft.aspnetcore.mvc.newtonsoftjson.7.0.5.nupkg.sha512",
     "C:\\Users\\Jeoffy\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

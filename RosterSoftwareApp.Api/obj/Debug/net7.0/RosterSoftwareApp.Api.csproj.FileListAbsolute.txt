@@ -76,3 +76,4 @@ C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
