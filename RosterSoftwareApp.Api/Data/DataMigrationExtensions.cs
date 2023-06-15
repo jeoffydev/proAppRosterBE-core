@@ -12,6 +12,10 @@ public static class DataMigrationExtensions
         using var scope = serviceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<RosterStoreContext>();
         await dbContext.Database.MigrateAsync();
+
+        var logger = serviceProvider.GetRequiredService<ILoggerFactory>()
+                                    .CreateLogger("Database Migration");
+        logger.LogInformation(5, "Database is ready!");
     }
 
 
