@@ -12,7 +12,7 @@ public class Event
     [Required]
     public required DateTime? EventDate { get; set; }
     [Required]
-    [StringLength(10)]
+    [StringLength(50)]
     public required string EventTime { get; set; }
     [Required]
     public required string Description { get; set; }
