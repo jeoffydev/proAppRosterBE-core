@@ -37,7 +37,8 @@ public static class DataMigrationExtensions
         services.AddSqlServer<RosterStoreContext>(connectionDBString)
         .AddScoped<IEventsRepository, EntityFrameworkEventRepository>()
         .AddScoped<ISongRepository, EntityFrameworkSongRepository>()
-        .AddScoped<IEventSongRepository, EntityFrameworkEventSongRepository>();
+        .AddScoped<IEventSongRepository, EntityFrameworkEventSongRepository>()
+        .AddScoped<IInstrumentRepository, EntityFrameworkInstrumentRepository>();
 
         return services;
     }

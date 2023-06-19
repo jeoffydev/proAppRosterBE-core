@@ -41,6 +41,7 @@ app.UseHttpLogging();
 app.MapEventsEndpoint();
 app.MapSongsEndpoint();
 app.MapEventSongsEndpoint();
+app.MapInstrumentsEndpoint();
 
 app.UseCors();
 
