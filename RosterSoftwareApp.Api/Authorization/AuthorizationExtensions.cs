@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using RosterSoftwareApp.Api.Data;
 
 namespace RosterSoftwareApp.Api.Authorization;
@@ -7,17 +9,18 @@ public static class AuthorizationExtensions
 
     public static IServiceCollection AuthorizeRoleAdminExtensions(this IServiceCollection services)
     {
-        services.AddAuthorization(options =>
+        services.AddScoped<IClaimsTransformation, ScopeTransformation>()
+        .AddAuthorization(options =>
         {
             options.AddPolicy(
                 PoliciesClaim.ReadAccess, builder =>
                 builder.RequireClaim("scope", "roster:read")
-                .RequireRole(UserRolePolicy.AdminRole)
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme, "Auth0")
             );
             options.AddPolicy(
                 PoliciesClaim.WriteAccess, builder =>
                 builder.RequireClaim("scope", "roster:write")
-                .RequireRole(UserRolePolicy.AdminRole)
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme, "Auth0")
             );
         });
 

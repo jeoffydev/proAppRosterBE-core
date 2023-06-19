@@ -11,10 +11,12 @@ public class EntityFrameworkEventRepository : IEventsRepository
 {
 
     private readonly RosterStoreContext dbContext; //ctrl .
+    private readonly ILogger<EntityFrameworkEventRepository> logger;
 
-    public EntityFrameworkEventRepository(RosterStoreContext dbContext)
+    public EntityFrameworkEventRepository(RosterStoreContext dbContext, ILogger<EntityFrameworkEventRepository> logger)
     {
         this.dbContext = dbContext;
+        this.logger = logger;
     }
 
     public async Task<IEnumerable<Event>> GetAllAsync()
@@ -46,6 +48,8 @@ public class EntityFrameworkEventRepository : IEventsRepository
     {
         dbContext.Events.Add(ev);
         await dbContext.SaveChangesAsync();
+
+        logger.LogInformation(" Event created with {Title} and {EventDate} ", ev.Title, ev.EventDate);
     }
 
     public async Task UpdateEventAsync(Event updatedEvent)
