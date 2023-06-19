@@ -19,7 +19,7 @@ public record CreateEventDto(
     string Title,
     [Required]
     DateTime? EventDate,
-    [StringLength(10)]
+    [StringLength(50)]
     [Required]
     string EventTime,
      [Required]
