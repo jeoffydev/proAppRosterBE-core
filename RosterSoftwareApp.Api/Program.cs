@@ -43,6 +43,8 @@ app.MapSongsEndpoint();
 app.MapEventSongsEndpoint();
 app.MapInstrumentsEndpoint();
 app.MapNotificationsEndpoint();
+app.MapNoResultEndpoint();
+
 
 app.UseCors();
 

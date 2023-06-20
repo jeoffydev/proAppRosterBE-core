@@ -16,6 +16,7 @@ public static class InstrumentsEndpoint
 
         /* this can be read access which admin also has */
 
+
         // Get all Instruments 
         groupRoute.MapGet("/", async (IInstrumentRepository instrumentRepository) =>
         (await instrumentRepository.GetAllInstrumentsAsync()).Select(e => e.AsInstrumentDto()))
