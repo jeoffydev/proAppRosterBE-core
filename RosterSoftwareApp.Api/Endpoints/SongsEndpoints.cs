@@ -1,4 +1,5 @@
 using RosterSoftwareApp.Api.AllDtos;
+using RosterSoftwareApp.Api.Data;
 using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
 
@@ -14,7 +15,10 @@ public static class SongsEndpoints
 
         // Get all Songs
         groupRoute.MapGet("/", async (ISongRepository songsRepository) =>
-        (await songsRepository.GetAllAsync()).Select(e => e.AsSongDto()));
+        (await songsRepository.GetAllAsync()).Select(e => e.AsSongDto()))
+        .RequireAuthorization(
+            PoliciesClaim.ReadAccess
+        );
 
         // Get Song by ID 
         groupRoute.MapGet("/{id}", async (ISongRepository songsRepository, int id) =>
@@ -22,7 +26,10 @@ public static class SongsEndpoints
             Song? s = await songsRepository.GetSongAsync(id);
             return s is not null ? Results.Ok(s.AsSongDto()) : Results.NotFound();
 
-        }).WithName(GetSongEndPointName);
+        }).WithName(GetSongEndPointName)
+         .RequireAuthorization(
+            PoliciesClaim.ReadAccess
+        );
 
         // Create Song and received the Dtos type
         groupRoute.MapPost("/", async (ISongRepository songRepository, CreateSongDto sDto) =>
@@ -39,7 +46,9 @@ public static class SongsEndpoints
             await songRepository.CreateSongAsync(so);
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetSongEndPointName, new { Id = so.Id }, so);
-        });
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
 
         // Edit Song
         groupRoute.MapPut("/{id}", async (ISongRepository songRepository, int id, UpdateSongDto updateSongDto) =>
@@ -58,7 +67,9 @@ public static class SongsEndpoints
             await songRepository.UpdateSongAsync(so);
 
             return Results.NoContent();
-        });
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
 
         // DELETE song
 
@@ -70,7 +81,9 @@ public static class SongsEndpoints
                 await songRepository.DeleteSongAsync(id);
             }
             return Results.NoContent();
-        });
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
 
         return groupRoute;
     }
