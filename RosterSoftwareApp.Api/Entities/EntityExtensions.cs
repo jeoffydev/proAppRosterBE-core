@@ -42,6 +42,15 @@ public static class EntityExtensions
         );
     }
 
+    public static InstrumentDto AsInstrumentDto(this Instrument ins)
+    {
+        return new InstrumentDto(
+            ins.Id,
+            ins.InstrumentName,
+            ins.Description
+        );
+    }
+
 
 
 }

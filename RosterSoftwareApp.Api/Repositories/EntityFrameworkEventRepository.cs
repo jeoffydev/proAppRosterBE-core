@@ -22,6 +22,7 @@ public class EntityFrameworkEventRepository : IEventsRepository
     public async Task<IEnumerable<Event>> GetAllAsync()
     {
         return await dbContext.Events
+        .OrderByDescending((e) => e.EventDate)
         .AsNoTracking().ToListAsync();
 
         // return await dbContext.Events
