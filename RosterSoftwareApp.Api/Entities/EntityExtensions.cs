@@ -51,6 +51,16 @@ public static class EntityExtensions
         );
     }
 
+    public static NotificationDto AsNotificationDto(this Notification no)
+    {
+        return new NotificationDto(
+            no.Id,
+            no.Title,
+            no.Description,
+            no.Active
+        );
+    }
+
 
 
 }

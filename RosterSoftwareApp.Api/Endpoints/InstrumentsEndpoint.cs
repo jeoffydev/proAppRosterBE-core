@@ -16,6 +16,7 @@ public static class InstrumentsEndpoint
 
         /* this can be read access which admin also has */
 
+
         // Get all Instruments 
         groupRoute.MapGet("/", async (IInstrumentRepository instrumentRepository) =>
         (await instrumentRepository.GetAllInstrumentsAsync()).Select(e => e.AsInstrumentDto()))
@@ -48,6 +49,24 @@ public static class InstrumentsEndpoint
             await insRepository.CreateInstrumentAsync(ins);
             // return the latest created using the Get by ID
             return Results.CreatedAtRoute(GetInstrumentEndPointName, new { Id = ins.Id }, ins);
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
+
+        // Edit Song
+        groupRoute.MapPut("/{id}", async (IInstrumentRepository insRepository, int id, UpdateInstrumentDto updateInsDto) =>
+        {
+            Instrument? ins = await insRepository.GetInstrumentAsync(id);
+            if (ins is null)
+            {
+                return Results.NotFound();
+            }
+            ins.InstrumentName = updateInsDto.InstrumentName;
+            ins.Description = updateInsDto.Description;
+
+            await insRepository.UpdateInstrumentAsync(ins);
+
+            return Results.NoContent();
         }).RequireAuthorization(
             PoliciesClaim.WriteAccess
         );

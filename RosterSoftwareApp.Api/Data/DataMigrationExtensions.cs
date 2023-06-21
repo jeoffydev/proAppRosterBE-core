@@ -38,7 +38,9 @@ public static class DataMigrationExtensions
         .AddScoped<IEventsRepository, EntityFrameworkEventRepository>()
         .AddScoped<ISongRepository, EntityFrameworkSongRepository>()
         .AddScoped<IEventSongRepository, EntityFrameworkEventSongRepository>()
-        .AddScoped<IInstrumentRepository, EntityFrameworkInstrumentRepository>();
+        .AddScoped<IInstrumentRepository, EntityFrameworkInstrumentRepository>()
+        .AddScoped<INotificationRepository, EntityFrameworkNotificationRepository>();
+
 
         return services;
     }
