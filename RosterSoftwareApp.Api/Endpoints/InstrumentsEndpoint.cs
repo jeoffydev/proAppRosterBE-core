@@ -53,6 +53,24 @@ public static class InstrumentsEndpoint
             PoliciesClaim.WriteAccess
         );
 
+        // Edit Song
+        groupRoute.MapPut("/{id}", async (IInstrumentRepository insRepository, int id, UpdateInstrumentDto updateInsDto) =>
+        {
+            Instrument? ins = await insRepository.GetInstrumentAsync(id);
+            if (ins is null)
+            {
+                return Results.NotFound();
+            }
+            ins.InstrumentName = updateInsDto.InstrumentName;
+            ins.Description = updateInsDto.Description;
+
+            await insRepository.UpdateInstrumentAsync(ins);
+
+            return Results.NoContent();
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
+
         // DELETE Instrument
 
         groupRoute.MapDelete("/{id}", async (IInstrumentRepository insRepository, int id) =>
