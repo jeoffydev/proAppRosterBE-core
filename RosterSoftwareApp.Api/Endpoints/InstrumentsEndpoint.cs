@@ -37,7 +37,7 @@ public static class InstrumentsEndpoint
             PoliciesClaim.WriteAccess
         );
 
-        // Create Song and received the Dtos type
+        // Create Instrument and received the Dtos type
         groupRoute.MapPost("/", async (IInstrumentRepository insRepository, CreateInstrumentDto iDto) =>
         {
             //Map the DTOs type to Song type
