@@ -14,7 +14,9 @@ public class EntityFrameworkNotificationRepository : INotificationRepository
 
     public async Task<IEnumerable<Notification>> GetAllNotificationsAsync()
     {
-        return await dbContext.Notifications.AsNoTracking().ToListAsync();
+        return await dbContext.Notifications
+        .OrderByDescending((n) => n.Id)
+        .AsNoTracking().ToListAsync();
     }
 
     public async Task<Notification?> GetNotificationAsync(int id)
@@ -37,6 +39,15 @@ public class EntityFrameworkNotificationRepository : INotificationRepository
     public async Task DeleteNotificationAsync(int id)
     {
         await dbContext.Notifications.Where(e => e.Id == id).ExecuteDeleteAsync();
+    }
+
+    // Members Repository
+    public async Task<IEnumerable<Notification>> GetAllMembersNotificationsAsync()
+    {
+        return await dbContext.Notifications
+        .Where((n) => n.Active == 1)
+        .OrderByDescending((n) => n.Id)
+        .AsNoTracking().ToListAsync();
     }
 
 

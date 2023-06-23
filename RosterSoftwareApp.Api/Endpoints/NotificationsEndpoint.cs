@@ -85,6 +85,15 @@ public static class NotificationEndpoint
             PoliciesClaim.WriteAccess
         );
 
+        // Members Endpoint
+
+        // Get all members Notifications 
+        groupRoute.MapGet("/members", async (INotificationRepository notificationRepository) =>
+        (await notificationRepository.GetAllMembersNotificationsAsync()).Select(e => e.AsNotificationDto()))
+        .RequireAuthorization(
+            PoliciesClaim.ReadAccess
+        );
+
 
 
         return groupRoute;

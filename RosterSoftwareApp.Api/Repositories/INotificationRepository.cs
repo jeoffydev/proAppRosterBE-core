@@ -9,4 +9,7 @@ public interface INotificationRepository
     Task<IEnumerable<Notification>> GetAllNotificationsAsync();
     Task<Notification?> GetNotificationAsync(int id);
     Task UpdateNotificationAsync(Notification updatedNotification);
+
+    // Members IRepository
+    Task<IEnumerable<Notification>> GetAllMembersNotificationsAsync();
 }
