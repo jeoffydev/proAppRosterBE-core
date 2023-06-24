@@ -16,7 +16,9 @@ public class EntityFrameworkSongRepository : ISongRepository
 
     public async Task<IEnumerable<Song>> GetAllAsync()
     {
-        return await dbContext.Songs.AsNoTracking().ToListAsync();
+        return await dbContext.Songs
+        .OrderBy((s) => s.Title)
+        .AsNoTracking().ToListAsync();
     }
 
     public async Task<Song?> GetSongAsync(int id)
@@ -39,6 +41,15 @@ public class EntityFrameworkSongRepository : ISongRepository
     public async Task DeleteSongAsync(int id)
     {
         await dbContext.Songs.Where(e => e.Id == id).ExecuteDeleteAsync();
+    }
+
+    // Members Repository
+    public async Task<IEnumerable<Song>> GetAllMemberSongsAsync()
+    {
+        return await dbContext.Songs
+        .Where((s) => s.ToLearn == true)
+        .OrderBy((s) => s.Title)
+        .AsNoTracking().ToListAsync();
     }
 
 }

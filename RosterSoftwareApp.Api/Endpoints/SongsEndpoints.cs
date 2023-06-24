@@ -85,6 +85,15 @@ public static class SongsEndpoints
             PoliciesClaim.WriteAccess
         );
 
+        // Members Endpoint
+
+        // Get all To learn Songs for members
+        groupRoute.MapGet("/to-learn", async (ISongRepository songsRepository) =>
+        (await songsRepository.GetAllMemberSongsAsync()).Select(e => e.AsSongDto()))
+        .RequireAuthorization(
+            PoliciesClaim.ReadAccess
+        );
+
         return groupRoute;
     }
 }
