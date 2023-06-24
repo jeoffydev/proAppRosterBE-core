@@ -10,4 +10,5 @@ public interface ISongRepository
     Task<IEnumerable<Song>> GetAllAsync();
     Task<Song?> GetSongAsync(int id);
     Task UpdateSongAsync(Song updatedSong);
+    Task<IEnumerable<Song>> GetAllMemberSongsAsync();
 }
