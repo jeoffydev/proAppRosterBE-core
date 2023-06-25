@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RosterSoftwareApp.Api.Data;
 
@@ -11,9 +12,11 @@ using RosterSoftwareApp.Api.Data;
 namespace RosterSoftwareApp.Api.Data.Migrations
 {
     [DbContext(typeof(RosterStoreContext))]
-    partial class RosterStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230625031803_InitialMemberInstrumentRenameVirtual")]
+    partial class InitialMemberInstrumentRenameVirtual
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +120,6 @@ namespace RosterSoftwareApp.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstrumentId");
-
                     b.ToTable("MemberInstruments");
                 });
 
@@ -195,17 +196,6 @@ namespace RosterSoftwareApp.Api.Data.Migrations
                     b.Navigation("Event");
 
                     b.Navigation("Song");
-                });
-
-            modelBuilder.Entity("RosterSoftwareApp.Api.Entities.MemberInstrument", b =>
-                {
-                    b.HasOne("RosterSoftwareApp.Api.Entities.Instrument", "Instrument")
-                        .WithMany()
-                        .HasForeignKey("InstrumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Instrument");
                 });
 #pragma warning restore 612, 618
         }

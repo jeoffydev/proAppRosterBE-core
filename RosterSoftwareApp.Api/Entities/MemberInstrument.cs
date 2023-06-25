@@ -11,11 +11,10 @@ public class MemberInstrument
     [Required]
     public required string MemberId { get; set; }
 
-
+    [Required]
     public int InstrumentId { get; set; }
 
     [ForeignKey("InstrumentId")]
 
-    [NotMapped]
-    public required List<Instrument> Instruments { get; set; }
+    public virtual Instrument? Instrument { get; set; }
 }

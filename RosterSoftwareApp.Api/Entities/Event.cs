@@ -21,4 +21,5 @@ public class Event
 
     [NotMapped]
     public required List<EventSong> EventSongs { get; set; }
+
 }
