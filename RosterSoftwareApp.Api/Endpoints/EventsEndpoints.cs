@@ -42,7 +42,7 @@ public static class EventsEndpoints
             return Results.NotFound();
 
         }).WithName(GetEventEndPointName)
-        .RequireAuthorization(PoliciesClaim.WriteAccess); //so we can use after the create result CreatedAtRoute()
+        .RequireAuthorization(PoliciesClaim.ReadAccess); //so we can use after the create result CreatedAtRoute()
 
         // Create Event and received the Dtos type
         groupRoute.MapPost("/", async (
@@ -57,7 +57,8 @@ public static class EventsEndpoints
                 EventTime = evDto.EventTime,
                 Description = evDto.Description,
                 Active = evDto.Active,
-                EventSongs = new() { }
+                EventSongs = new() { },
+                MemberEvents = new() { }
             };
 
             await eventsRepository.CreateEventAsync(ev);

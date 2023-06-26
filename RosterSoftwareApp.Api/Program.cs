@@ -44,6 +44,7 @@ app.MapEventSongsEndpoint();
 app.MapInstrumentsEndpoint();
 app.MapNotificationsEndpoint();
 app.MapMemberInstrumentsEndpoint();
+app.MapMemberEventsEndpoint();
 app.MapNoResultEndpoint();
 
 

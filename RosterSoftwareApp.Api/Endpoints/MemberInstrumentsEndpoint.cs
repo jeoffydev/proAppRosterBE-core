@@ -20,7 +20,7 @@ public static class MemberInstrumentEndpoint
             PoliciesClaim.ReadAccess
         );
 
-        // Get Song by ID 
+        // Get MI by ID 
         groupRoute.MapGet("/{id}", async (IMemberInstrumentRepository memberInstrumentRepository, int id) =>
         {
             MemberInstrument? mi = await memberInstrumentRepository.GetMemberInstrumentByIdAsync(id);
@@ -34,7 +34,7 @@ public static class MemberInstrumentEndpoint
         //Create member and instrument relation
         groupRoute.MapPost("/", async (IMemberInstrumentRepository memberInstrumentRepository, CreateMemberInstrumentDto miDto) =>
        {
-           //Map the DTOs type to Event Song type
+           //Map the DTOs type to MI type
            MemberInstrument mi = new()
            {
                MemberId = miDto.MemberId,

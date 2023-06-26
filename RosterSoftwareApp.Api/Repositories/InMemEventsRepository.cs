@@ -13,6 +13,8 @@ public class InMemEventsRepository : IEventsRepository
             Description = "Test1 Description",
             Active = true,
             EventSongs = new(){
+            },
+            MemberEvents = new(){
             }
         },
         new Event() {
@@ -23,6 +25,8 @@ public class InMemEventsRepository : IEventsRepository
             Description = "Test2 Description",
             Active = true,
             EventSongs = new(){
+            },
+            MemberEvents = new(){
             }
         },
         new Event() {
@@ -33,6 +37,8 @@ public class InMemEventsRepository : IEventsRepository
             Description = "Test3 Description",
             Active = false,
             EventSongs = new(){
+            },
+            MemberEvents = new(){
             }
         }
     };

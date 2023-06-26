@@ -72,6 +72,16 @@ public static class EntityExtensions
         );
     }
 
+    public static MemberEventDto AsMemberEventDto(this MemberEvent memberEvent)
+    {
+        return new MemberEventDto(
+            memberEvent.Id,
+            memberEvent.Confirm,
+            memberEvent.EventId,
+            memberEvent.MemberInstrumentId
+        );
+    }
+
 
 
 }

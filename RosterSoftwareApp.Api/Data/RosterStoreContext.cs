@@ -21,6 +21,7 @@ public class RosterStoreContext : DbContext
 
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<MemberInstrument> MemberInstruments => Set<MemberInstrument>();
+    public DbSet<MemberEvent> MemberEvents => Set<MemberEvent>();
 
     // add this after adding the EventConfiguration
     protected override void OnModelCreating(ModelBuilder modelBuilder)
