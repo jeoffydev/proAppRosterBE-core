@@ -44,7 +44,8 @@ public static class InstrumentsEndpoint
             Instrument ins = new()
             {
                 InstrumentName = iDto.InstrumentName,
-                Description = iDto.Description
+                Description = iDto.Description,
+                MemberInstruments = new() { }
             };
             await insRepository.CreateInstrumentAsync(ins);
             // return the latest created using the Get by ID

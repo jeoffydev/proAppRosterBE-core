@@ -100,6 +100,54 @@ namespace RosterSoftwareApp.Api.Data.Migrations
                     b.ToTable("Instruments");
                 });
 
+            modelBuilder.Entity("RosterSoftwareApp.Api.Entities.MemberEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Confirm")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MemberInstrumentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("MemberInstrumentId");
+
+                    b.ToTable("MemberEvents");
+                });
+
+            modelBuilder.Entity("RosterSoftwareApp.Api.Entities.MemberInstrument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InstrumentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MemberId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("MemberInstruments");
+                });
+
             modelBuilder.Entity("RosterSoftwareApp.Api.Entities.Notification", b =>
                 {
                     b.Property<int>("Id")
@@ -173,6 +221,36 @@ namespace RosterSoftwareApp.Api.Data.Migrations
                     b.Navigation("Event");
 
                     b.Navigation("Song");
+                });
+
+            modelBuilder.Entity("RosterSoftwareApp.Api.Entities.MemberEvent", b =>
+                {
+                    b.HasOne("RosterSoftwareApp.Api.Entities.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RosterSoftwareApp.Api.Entities.MemberInstrument", "MemberInstrument")
+                        .WithMany()
+                        .HasForeignKey("MemberInstrumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("MemberInstrument");
+                });
+
+            modelBuilder.Entity("RosterSoftwareApp.Api.Entities.MemberInstrument", b =>
+                {
+                    b.HasOne("RosterSoftwareApp.Api.Entities.Instrument", "Instrument")
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instrument");
                 });
 #pragma warning restore 612, 618
         }

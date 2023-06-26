@@ -62,5 +62,26 @@ public static class EntityExtensions
     }
 
 
+    public static MemberInstrumentDto AsMemberInstrumentDto(this MemberInstrument memberInstrument)
+    {
+        return new MemberInstrumentDto(
+            memberInstrument.Id,
+            memberInstrument.MemberId,
+            memberInstrument.InstrumentId,
+            memberInstrument.Instrument
+        );
+    }
+
+    public static MemberEventDto AsMemberEventDto(this MemberEvent memberEvent)
+    {
+        return new MemberEventDto(
+            memberEvent.Id,
+            memberEvent.Confirm,
+            memberEvent.EventId,
+            memberEvent.MemberInstrumentId
+        );
+    }
+
+
 
 }

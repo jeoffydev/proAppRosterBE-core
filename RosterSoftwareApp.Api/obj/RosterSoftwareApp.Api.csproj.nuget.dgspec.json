@@ -66,6 +66,10 @@
             "MinimalApis.Extensions": {
               "target": "Package",
               "version": "[0.10.1, )"
+            },
+            "xunit.core": {
+              "target": "Package",
+              "version": "[2.5.0-pre.37, )"
             }
           },
           "imports": [
