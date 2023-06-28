@@ -31,6 +31,14 @@ public static class MemberInstrumentEndpoint
             PoliciesClaim.ReadAccess
         ).WithName(GetMemberInstrumentEndPointName);
 
+        groupRoute.MapGet("/my-tools/{id}", async (IMemberInstrumentRepository memberInstrumentRepository, string id) =>
+        {
+            return (await memberInstrumentRepository.GetMemberInstrumentByMemberIdAsync(id)).Select(e => e.AsMemberInstrumentDto());
+
+        }).RequireAuthorization(
+            PoliciesClaim.ReadAccess
+        );
+
         //Create member and instrument relation
         groupRoute.MapPost("/", async (IMemberInstrumentRepository memberInstrumentRepository, CreateMemberInstrumentDto miDto) =>
        {
@@ -38,13 +46,15 @@ public static class MemberInstrumentEndpoint
            MemberInstrument mi = new()
            {
                MemberId = miDto.MemberId,
-               InstrumentId = miDto.InstrumentId
+               MemberName = miDto.MemberName,
+               InstrumentId = miDto.InstrumentId,
+
            };
            await memberInstrumentRepository.CreateMemberInstrumentAsync(mi);
            // return the latest created using the Get by ID
            return Results.CreatedAtRoute(GetMemberInstrumentEndPointName, new { Id = mi.Id }, mi);
        }).RequireAuthorization(
-            PoliciesClaim.WriteAccess
+            PoliciesClaim.ReadAccess
         );
 
         //  DELETE MemberInstrument
@@ -58,7 +68,7 @@ public static class MemberInstrumentEndpoint
             }
             return Results.NoContent();
         }).RequireAuthorization(
-            PoliciesClaim.WriteAccess
+            PoliciesClaim.ReadAccess
         );
 
         return groupRoute;

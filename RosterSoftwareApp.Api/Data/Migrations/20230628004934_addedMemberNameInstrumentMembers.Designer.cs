@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RosterSoftwareApp.Api.Data;
 
@@ -11,9 +12,11 @@ using RosterSoftwareApp.Api.Data;
 namespace RosterSoftwareApp.Api.Data.Migrations
 {
     [DbContext(typeof(RosterStoreContext))]
-    partial class RosterStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230628004934_addedMemberNameInstrumentMembers")]
+    partial class addedMemberNameInstrumentMembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
