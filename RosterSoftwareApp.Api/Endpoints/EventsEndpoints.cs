@@ -3,6 +3,7 @@ using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
 using RosterSoftwareApp.Api.ViewModels;
 using RosterSoftwareApp.Api.Data;
+using System.Diagnostics;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -17,10 +18,12 @@ public static class EventsEndpoints
                         .WithParameterValidation();
 
         // Get all Events
-        groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
-        (
-            await eventsRepository.GetAllAsync()).Select(e => e.AsDto())
-        ).RequireAuthorization(PoliciesClaim.WriteAccess);
+        groupRoute.MapGet("/", async (IEventsRepository eventsRepository, ILoggerFactory loggerFactory) =>
+        {
+            return Results.Ok((await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
+
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
 
 
 

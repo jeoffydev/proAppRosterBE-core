@@ -4,6 +4,8 @@ using RosterSoftwareApp.Api.Endpoints;
 using RosterSoftwareApp.Api.Data;
 using RosterSoftwareApp.Api.Authorization;
 using RosterSoftwareApp.Api.Cors;
+using RosterSoftwareApp.Api.Middleware;
+using RosterSoftwareApp.Api.ErrorHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,19 +20,16 @@ builder.Services.AddAuthentication()
 //Admin for authentication users but has separate access
 builder.Services.AuthorizeRoleAdminExtensions();
 
-// builder.Logging.AddJsonConsole(options =>
-// {
-//     options.JsonWriterOptions = new()
-//     {
-//         Indented = true
-//     };
-// });
-
 
 // CORS 
 builder.Services.AddRosterCors(builder.Configuration);
 
 var app = builder.Build();
+
+// Error handler built-in exception * from folder ErrorHandling/
+app.UseExceptionHandler(exceptionHandlerApp => exceptionHandlerApp.ConfigureExceptionHandler());
+// Custom middleware for timer
+app.UseMiddleware<RequestTimingMiddleware>();
 
 // to automatically migrate the EF changes
 await app.Services.InitializeDbMigrationAsync();

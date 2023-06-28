@@ -21,6 +21,7 @@ public class EntityFrameworkEventRepository : IEventsRepository
 
     public async Task<IEnumerable<Event>> GetAllAsync()
     {
+        // sample throw new InvalidOperationException("The database");
         return await dbContext.Events
         .OrderByDescending((e) => e.EventDate)
         .AsNoTracking().ToListAsync();
