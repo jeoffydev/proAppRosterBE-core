@@ -67,6 +67,7 @@ public static class EntityExtensions
         return new MemberInstrumentDto(
             memberInstrument.Id,
             memberInstrument.MemberId,
+            memberInstrument.MemberName,
             memberInstrument.InstrumentId,
             memberInstrument.Instrument
         );

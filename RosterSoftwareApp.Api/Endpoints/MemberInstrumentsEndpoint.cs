@@ -46,7 +46,9 @@ public static class MemberInstrumentEndpoint
            MemberInstrument mi = new()
            {
                MemberId = miDto.MemberId,
-               InstrumentId = miDto.InstrumentId
+               MemberName = miDto.MemberName,
+               InstrumentId = miDto.InstrumentId,
+
            };
            await memberInstrumentRepository.CreateMemberInstrumentAsync(mi);
            // return the latest created using the Get by ID

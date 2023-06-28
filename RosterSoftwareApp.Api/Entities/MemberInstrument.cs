@@ -12,6 +12,9 @@ public class MemberInstrument
     public required string MemberId { get; set; }
 
     [Required]
+    public required string MemberName { get; set; }
+
+    [Required]
     public int InstrumentId { get; set; }
 
     [ForeignKey("InstrumentId")]
