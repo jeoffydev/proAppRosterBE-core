@@ -28,17 +28,19 @@ public static class EventsEndpoints
 
 
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, int id) =>
+        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, IMemberEventRepository memberEventRepository, int id) =>
         {
             Event? ev = await eventsRepository.GetEventAsync(id);
             var evs = (List<EventSong>)await eventSongRepository.GetEventSongByEventIdAsync(id);
+            var mes = (List<MemberEvent>)await memberEventRepository.GetMemberEventByEventIdAsync(id);
 
             if (ev is not null)
             {
                 var EventAndSongs = new EventViewModel
                 {
                     Event = ev,
-                    EventSongs = evs
+                    EventSongs = evs,
+                    MemberEvents = mes
                 };
                 return Results.Ok(EventAndSongs);
             }

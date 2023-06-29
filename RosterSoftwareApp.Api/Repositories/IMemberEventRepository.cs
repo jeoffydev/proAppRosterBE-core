@@ -6,6 +6,7 @@ public interface IMemberEventRepository
 {
     Task CreateMemberEventAsync(MemberEvent mi);
     Task DeleteMemberEventAsync(int id);
+    Task UpdateConfirmMemberEventAsync(MemberEvent mi);
     Task<IEnumerable<MemberEvent>> GetMemberEventByEventIdAsync(int id);
     Task<IEnumerable<MemberEvent>> GetAllMemberEventsAsync();
     Task<MemberEvent?> GetMemberEventAsync(MemberEvent me);
