@@ -47,3 +47,14 @@ public record DeleteMemberEventDto(
     [Required]
     int MemberInstrumentId
 );
+
+
+public record MemberEventViewModelDto(
+    int Id,
+    bool Confirm,
+    int EventId,
+    Event Event,
+    int MemberInstrumentId,
+    MemberInstrument MemberInstrument,
+    EventSong EventSong
+);

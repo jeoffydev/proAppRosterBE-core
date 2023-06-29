@@ -4,6 +4,7 @@ using RosterSoftwareApp.Api.Repositories;
 using RosterSoftwareApp.Api.ViewModels;
 using RosterSoftwareApp.Api.Data;
 using System.Diagnostics;
+using RosterSoftwareApp.Api.AllDtos;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -102,6 +103,40 @@ public static class EventsEndpoints
             }
             return Results.NoContent();
         }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
+
+        // Members area
+
+        // Get Events by memberID 
+        groupRoute.MapGet("/memberId/{id}", async (IMemberEventRepository memberEventRepository, IEventSongRepository eventSongRepository, string id) =>
+        {
+            IEnumerable<MemberEvent> memberEvents = await memberEventRepository.GetMemberEventByMemberIdAsync(id);
+
+
+
+            var meListVMInit = new List<MemberEventListViewModel>();
+
+
+
+            foreach (var me in memberEvents)
+            {
+                var es = await eventSongRepository.GetEventSongByEventIdAsync(me.EventId);
+
+                MemberEventListViewModel meListVM = new()
+                {
+                    Id = me.Id,
+                    Confirm = me.Confirm,
+                    EventSong = es
+                };
+
+                meListVMInit.Add(meListVM);
+
+                //me.MemberInstrument.MemberId
+            }
+
+            return Results.Ok(meListVMInit);
+
+        });
 
 
 

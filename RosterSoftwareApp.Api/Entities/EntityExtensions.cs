@@ -1,6 +1,7 @@
 
 using RosterSoftwareApp.Api.AllDtos;
 using RosterSoftwareApp.Api.Dtos;
+using RosterSoftwareApp.Api.ViewModels;
 
 namespace RosterSoftwareApp.Api.Entities;
 
