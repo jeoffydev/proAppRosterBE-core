@@ -50,6 +50,12 @@ public class EntityFrameworkMemberEventRepository : IMemberEventRepository
         await dbContext.SaveChangesAsync();
     }
 
+    public async Task UpdateConfirmMemberEventAsync(MemberEvent mi)
+    {
+        dbContext.MemberEvents.Update(mi);
+        await dbContext.SaveChangesAsync();
+    }
+
     public async Task DeleteMemberEventAsync(int id)
     {
         await dbContext.MemberEvents.Where(e => e.Id == id).ExecuteDeleteAsync();

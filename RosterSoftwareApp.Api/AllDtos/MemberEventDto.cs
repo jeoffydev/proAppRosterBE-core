@@ -35,6 +35,10 @@ public record CreateMemberEventDto(
     int MemberInstrumentId
 );
 
+public record UpdateConfirmMemberEventDto(
+    [Required]
+    bool Confirm
+);
 
 public record DeleteMemberEventDto(
     int Id,

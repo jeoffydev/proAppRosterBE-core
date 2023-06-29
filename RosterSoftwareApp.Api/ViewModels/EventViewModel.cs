@@ -7,6 +7,8 @@ public class EventViewModel
 {
     public required Event Event { get; set; }
     public required List<EventSong> EventSongs { get; set; }
+
+    public required List<MemberEvent> MemberEvents { get; set; }
 }
 
 public class EventSongViewModel

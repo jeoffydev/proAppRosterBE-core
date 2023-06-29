@@ -57,6 +57,37 @@ public static class MemberEventsEndpoint
             PoliciesClaim.WriteAccess
         );
 
+        //  DELETE MemberEvent
+        groupRoute.MapDelete("/{id}", async (IMemberEventRepository memberEventRepository, int id) =>
+        {
+            MemberEvent? me = await memberEventRepository.GetMemberEventByIdAsync(id);
+            if (me is not null)
+            {
+                await memberEventRepository.DeleteMemberEventAsync(id);
+            }
+            return Results.NoContent();
+        }).RequireAuthorization(
+            PoliciesClaim.WriteAccess
+        );
+
+        // Members area
+
+        // Edit EventMember Confirm
+        groupRoute.MapPatch("/{id}", async (IMemberEventRepository memberEventRepository, int id, UpdateConfirmMemberEventDto ucDto) =>
+        {
+            MemberEvent? ev = await memberEventRepository.GetMemberEventByIdAsync(id);
+            if (ev is null)
+            {
+                return Results.NotFound();
+            }
+            ev.Confirm = ucDto.Confirm;
+
+            await memberEventRepository.UpdateConfirmMemberEventAsync(ev);
+
+            return Results.NoContent();
+        }).RequireAuthorization(PoliciesClaim.ReadAccess);
+
+
         return groupRoute;
     }
 }

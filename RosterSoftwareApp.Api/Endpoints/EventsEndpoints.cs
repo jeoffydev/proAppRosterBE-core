@@ -3,6 +3,7 @@ using RosterSoftwareApp.Api.Entities;
 using RosterSoftwareApp.Api.Repositories;
 using RosterSoftwareApp.Api.ViewModels;
 using RosterSoftwareApp.Api.Data;
+using System.Diagnostics;
 
 namespace RosterSoftwareApp.Api.Endpoints;
 
@@ -17,25 +18,29 @@ public static class EventsEndpoints
                         .WithParameterValidation();
 
         // Get all Events
-        groupRoute.MapGet("/", async (IEventsRepository eventsRepository) =>
-        (
-            await eventsRepository.GetAllAsync()).Select(e => e.AsDto())
-        ).RequireAuthorization(PoliciesClaim.WriteAccess);
+        groupRoute.MapGet("/", async (IEventsRepository eventsRepository, ILoggerFactory loggerFactory) =>
+        {
+            return Results.Ok((await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
+
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
 
 
 
         // Get Event by ID 
-        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, int id) =>
+        groupRoute.MapGet("/{id}", async (IEventsRepository eventsRepository, IEventSongRepository eventSongRepository, IMemberEventRepository memberEventRepository, int id) =>
         {
             Event? ev = await eventsRepository.GetEventAsync(id);
             var evs = (List<EventSong>)await eventSongRepository.GetEventSongByEventIdAsync(id);
+            var mes = (List<MemberEvent>)await memberEventRepository.GetMemberEventByEventIdAsync(id);
 
             if (ev is not null)
             {
                 var EventAndSongs = new EventViewModel
                 {
                     Event = ev,
-                    EventSongs = evs
+                    EventSongs = evs,
+                    MemberEvents = mes
                 };
                 return Results.Ok(EventAndSongs);
             }
