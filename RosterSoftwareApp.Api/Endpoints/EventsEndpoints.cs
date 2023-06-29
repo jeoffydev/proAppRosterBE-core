@@ -104,6 +104,64 @@ public static class EventsEndpoints
         }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
 
+        // Members area
+        // Get Events by memberID 
+        groupRoute.MapGet("/memberId/{id}", async (
+            IEventsRepository eventsRepository,
+            IMemberEventRepository memberEventRepository,
+            IEventSongRepository eventSongRepository,
+            IInstrumentRepository instrumentRepository,
+            string id) =>
+        {
+            IEnumerable<MemberEvent> memberEvents = await memberEventRepository.GetMemberEventByMemberIdAsync(id);
+            var meListVMInit = new List<MemberEventListViewModel>();
+
+            foreach (var me in memberEvents)
+            {
+                var es = await eventSongRepository.GetEventSongByEventIdAsync(me.EventId);
+                var allMembers = await memberEventRepository.GetMemberEventByEventIdAsync(me.EventId);
+
+                var meWithInsVMInit = new List<MemberEventsWithInstrumentDetailsViewModel>();
+                foreach (var myIns in allMembers)
+                {
+                    if (myIns.MemberInstrument is not null)
+                    {
+                        var ins = await instrumentRepository.GetInstrumentAsync(myIns.MemberInstrument.InstrumentId);
+
+                        if (ins is not null)
+                        {
+                            MemberEventsWithInstrumentDetailsViewModel meWithInsVM = new()
+                            {
+                                Id = myIns.Id,
+                                Confirm = myIns.Confirm,
+                                EventId = myIns.EventId,
+                                Event = myIns.Event,
+                                MemberInstrumentId = myIns.MemberInstrumentId,
+                                MemberInstrument = myIns.MemberInstrument,
+                                Instrument = ins
+                            };
+                            meWithInsVMInit.Add(meWithInsVM);
+                        }
+                    }
+                }
+
+                MemberEventListViewModel meListVM = new()
+                {
+                    Id = me.Id,
+                    Confirm = me.Confirm,
+                    EventSongs = es,
+                    EventId = me.EventId,
+                    Event = me.Event,
+                    MemberInstrumentId = me.MemberInstrumentId,
+                    MemberInstrument = me.MemberInstrument,
+                    MemberEventInstruments = meWithInsVMInit
+                };
+                meListVMInit.Add(meListVM);
+            }
+            return Results.Ok(meListVMInit);
+        });
+
+
 
 
         return groupRoute;

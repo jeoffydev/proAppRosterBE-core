@@ -77,8 +77,6 @@ C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\AppTests\obj\AppTests.csproj.nuget.dgspec.json
-c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\AppTests\obj\project.assets.json
 c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\xunit.abstractions.dll
 c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\xunit.core.dll
 c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\xunit.execution.dotnet.dll
