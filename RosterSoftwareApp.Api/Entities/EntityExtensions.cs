@@ -73,11 +73,22 @@ public static class EntityExtensions
         );
     }
 
-    public static MemberEventDto AsMemberEventDto(this MemberEvent memberEvent)
+    public static MemberEventDtoV1 AsMemberEventDtoV1(this MemberEvent memberEvent)
     {
-        return new MemberEventDto(
+        return new MemberEventDtoV1(
             memberEvent.Id,
             memberEvent.Confirm,
+            memberEvent.EventId,
+            memberEvent.MemberInstrumentId
+        );
+    }
+
+    public static MemberEventDtoV2 AsMemberEventDtoV2(this MemberEvent memberEvent)
+    {
+        return new MemberEventDtoV2(
+            memberEvent.Id,
+            memberEvent.Confirm,
+            !memberEvent.Confirm,
             memberEvent.EventId,
             memberEvent.MemberInstrumentId
         );

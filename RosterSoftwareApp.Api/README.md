@@ -48,3 +48,8 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet ef migrations add InitialCreate --output-dir Data/Migrations
 
 dotnet ef database update
+
+# Versioning
+dotnet add package Asp.Versioning.Http
+Check under the csproj
+Then change into Endpoint

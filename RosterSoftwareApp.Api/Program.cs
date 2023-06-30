@@ -20,6 +20,12 @@ builder.Services.AddAuthentication()
 //Admin for authentication users but has separate access
 builder.Services.AuthorizeRoleAdminExtensions();
 
+// API Versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new(1.0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+});
 
 // CORS 
 builder.Services.AddRosterCors(builder.Configuration);

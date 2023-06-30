@@ -69,6 +69,7 @@ public class EntityFrameworkMemberEventRepository : IMemberEventRepository
         .Include(i => i.Event)
         .AsNoTracking()
         .Where(i => i.MemberInstrument != null && i.MemberInstrument.MemberId == id)
+        .Where(i => i.Event != null && i.Event.Active == true)
         .ToListAsync();
     }
 }

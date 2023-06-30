@@ -2,6 +2,41 @@
   "version": 3,
   "targets": {
     "net7.0": {
+      "Asp.Versioning.Abstractions/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Asp.Versioning.Abstractions.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Asp.Versioning.Abstractions.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Asp.Versioning.Http/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Asp.Versioning.Abstractions": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Asp.Versioning.Http.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Asp.Versioning.Http.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Azure.Core/1.24.0": {
         "type": "package",
         "dependencies": {
@@ -2390,6 +2425,46 @@
     }
   },
   "libraries": {
+    "Asp.Versioning.Abstractions/7.0.0": {
+      "sha512": "yujGpbGBCViHvYiBJD0S5XFgOI+f5bGvi8tnfMJV6EC0b8SAqBn1YC+yCnJjQo3D2XP9TmSuKIJ7ofVy58GcuQ==",
+      "type": "package",
+      "path": "asp.versioning.abstractions/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.abstractions.7.0.0.nupkg.sha512",
+        "asp.versioning.abstractions.nuspec",
+        "icon.png",
+        "lib/net7.0/Asp.Versioning.Abstractions.dll",
+        "lib/net7.0/Asp.Versioning.Abstractions.pdb",
+        "lib/net7.0/Asp.Versioning.Abstractions.xml",
+        "lib/netstandard1.0/Asp.Versioning.Abstractions.dll",
+        "lib/netstandard1.0/Asp.Versioning.Abstractions.pdb",
+        "lib/netstandard1.0/Asp.Versioning.Abstractions.xml",
+        "lib/netstandard2.0/Asp.Versioning.Abstractions.dll",
+        "lib/netstandard2.0/Asp.Versioning.Abstractions.pdb",
+        "lib/netstandard2.0/Asp.Versioning.Abstractions.xml"
+      ]
+    },
+    "Asp.Versioning.Http/7.0.0": {
+      "sha512": "FG5grz29CYBT06xDWoM1hf+pfB7sPDYXuOOIYtVNIHduUQeWsxMfCITcDrMmZNXAf0TfcYRwCizJfOIJzWmaXA==",
+      "type": "package",
+      "path": "asp.versioning.http/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.http.7.0.0.nupkg.sha512",
+        "asp.versioning.http.nuspec",
+        "icon.png",
+        "lib/net7.0/Asp.Versioning.Http.dll",
+        "lib/net7.0/Asp.Versioning.Http.pdb",
+        "lib/net7.0/Asp.Versioning.Http.xml"
+      ]
+    },
     "Azure.Core/1.24.0": {
       "sha512": "+/qI1j2oU1S4/nvxb2k/wDsol00iGf1AyJX5g3epV7eOpQEP/2xcgh/cxgKMeFgn3U2fmgSiBnQZdkV+l5y0Uw==",
       "type": "package",
@@ -7486,6 +7561,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Asp.Versioning.Http >= 7.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.5",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.5",
@@ -7539,6 +7615,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Asp.Versioning.Http": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[7.0.5, )"

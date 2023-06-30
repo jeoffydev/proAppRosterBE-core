@@ -159,7 +159,7 @@ public static class EventsEndpoints
                 meListVMInit.Add(meListVM);
             }
             return Results.Ok(meListVMInit);
-        });
+        }).RequireAuthorization(PoliciesClaim.ReadAccess);
 
 
 
