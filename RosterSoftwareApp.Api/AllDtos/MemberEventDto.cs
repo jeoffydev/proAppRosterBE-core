@@ -4,10 +4,22 @@ using RosterSoftwareApp.Api.Entities;
 
 namespace RosterSoftwareApp.Api.AllDtos;
 
-public record MemberEventDto(
+public record MemberEventDtoV1(
     int Id,
     [Required]
     bool Confirm,
+     [Required]
+    int EventId,
+     [Required]
+    int MemberInstrumentId
+);
+
+public record MemberEventDtoV2(
+    int Id,
+    [Required]
+    bool Confirm,
+    [Required]
+    bool Decline,
      [Required]
     int EventId,
      [Required]

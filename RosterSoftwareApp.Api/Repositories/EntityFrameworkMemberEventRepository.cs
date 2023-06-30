@@ -60,4 +60,16 @@ public class EntityFrameworkMemberEventRepository : IMemberEventRepository
     {
         await dbContext.MemberEvents.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
+
+    // Members area
+    public async Task<IEnumerable<MemberEvent>> GetMemberEventByMemberIdAsync(string id)
+    {
+        return await dbContext.MemberEvents
+        .Include(m => m.MemberInstrument)
+        .Include(i => i.Event)
+        .AsNoTracking()
+        .Where(i => i.MemberInstrument != null && i.MemberInstrument.MemberId == id)
+        .Where(i => i.Event != null && i.Event.Active == true)
+        .ToListAsync();
+    }
 }
