@@ -3,6 +3,11 @@ using RosterSoftwareApp.Api.Entities;
 
 namespace RosterSoftwareApp.Api.Dtos;
 
+public record GetEventPaginationDto(
+    int pageNumber = 1,
+    int pageSize = 5
+);
+
 public record EventDto(
     int Id,
     string Title,

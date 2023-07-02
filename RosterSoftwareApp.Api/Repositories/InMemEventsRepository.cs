@@ -43,9 +43,15 @@ public class InMemEventsRepository : IEventsRepository
         }
     };
 
-    public async Task<IEnumerable<Event>> GetAllAsync()
+    public async Task<int> CountAsync()
     {
-        return await Task.FromResult(events);
+        return await Task.FromResult(events.Count);
+    }
+
+    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize)
+    {
+        var skipCount = (pageNumber - 1) * pageSize;
+        return await Task.FromResult(events.Skip(skipCount).Take(pageSize));
     }
 
     public async Task<Event?> GetEventAsync(int id)
@@ -81,5 +87,6 @@ public class InMemEventsRepository : IEventsRepository
 
         await Task.CompletedTask;
     }
+
 
 }

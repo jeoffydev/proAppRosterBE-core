@@ -18,9 +18,20 @@ public static class EventsEndpoints
                         .WithParameterValidation();
 
         // Get all Events
-        groupRoute.MapGet("/", async (IEventsRepository eventsRepository, ILoggerFactory loggerFactory) =>
+        groupRoute.MapGet("/", async (
+            IEventsRepository eventsRepository,
+            ILoggerFactory loggerFactory,
+            [AsParameters] GetEventPaginationDto request,
+            HttpContext http
+            ) =>
         {
-            return Results.Ok((await eventsRepository.GetAllAsync()).Select(e => e.AsDto()));
+            var totalCount = await eventsRepository.CountAsync();
+            http.Response.AddPaginationHeader(totalCount, request.pageSize);
+
+            return Results.Ok((await eventsRepository.GetAllAsync(
+                request.pageNumber,
+                request.pageSize
+                )).Select(e => e.AsDto()));
 
         }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
