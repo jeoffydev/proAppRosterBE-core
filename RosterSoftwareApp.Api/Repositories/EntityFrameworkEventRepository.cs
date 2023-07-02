@@ -19,26 +19,22 @@ public class EntityFrameworkEventRepository : IEventsRepository
         this.logger = logger;
     }
 
-    public async Task<IEnumerable<Event>> GetAllAsync()
+    public async Task<int> CountAsync()
     {
+        return await dbContext.Events.CountAsync();
+    }
+
+    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize)
+    {
+        var skipCount = (pageNumber - 1) * pageSize;
+
         // sample throw new InvalidOperationException("The database");
         return await dbContext.Events
         .OrderByDescending((e) => e.EventDate)
+        .Skip(skipCount)
+        .Take(pageSize)
         .AsNoTracking().ToListAsync();
 
-        // return await dbContext.Events
-        //         .Select(c => new
-        //         {
-        //             c.Id,
-        //             c.Title,
-        //             c.EventDate,
-        //             c.Description,
-        //             c.EventTime,
-        //             c.Active,
-        //             EventSong = c.EventSongs
-        //                 .Select(e => new { e.Id, e.Song })
-        //                 .ToList()
-        //         }).ToListAsync();
     }
 
     public async Task<Event?> GetEventAsync(int id)
@@ -65,4 +61,13 @@ public class EntityFrameworkEventRepository : IEventsRepository
         await dbContext.Events.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
 
+    public async Task<IEnumerable<Event>> GetAllExpiredEventsAsync()
+    {
+        var NumberOfDaysToPurge = 30;
+        var purgeDate = DateTime.UtcNow.AddDays(-NumberOfDaysToPurge);
+
+        return await dbContext.Events
+        .Where(e => e.EventDate <= purgeDate)
+        .AsNoTracking().ToListAsync();
+    }
 }
