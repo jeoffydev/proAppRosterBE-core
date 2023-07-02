@@ -12,4 +12,6 @@ public interface IEventsRepository
     Task UpdateEventAsync(Event updatedEvent);
 
     Task<int> CountAsync();
+
+    Task<IEnumerable<Event>> GetAllExpiredEventsAsync();
 }

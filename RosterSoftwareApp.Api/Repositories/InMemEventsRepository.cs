@@ -88,5 +88,8 @@ public class InMemEventsRepository : IEventsRepository
         await Task.CompletedTask;
     }
 
-
+    public async Task<IEnumerable<Event>> GetAllExpiredEventsAsync()
+    {
+        return await Task.FromResult(events);
+    }
 }

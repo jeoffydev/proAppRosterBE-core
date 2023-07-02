@@ -115,6 +115,23 @@ public static class EventsEndpoints
         }).RequireAuthorization(PoliciesClaim.WriteAccess);
 
 
+        // Get all expired Events
+        groupRoute.MapGet("/deleteExpiredEvents", async (
+            IEventsRepository eventsRepository
+            ) =>
+        {
+            var getExpiredEvents = await eventsRepository.GetAllExpiredEventsAsync();
+            if (getExpiredEvents is not null)
+            {
+                foreach (var item in getExpiredEvents)
+                {
+                    await eventsRepository.DeleteEventAsync(item.Id);
+                }
+            }
+            return Results.NoContent();
+        }).RequireAuthorization(PoliciesClaim.WriteAccess);
+
+
         // Members area
         // Get Events by memberID 
         groupRoute.MapGet("/memberId/{id}", async (
@@ -171,6 +188,10 @@ public static class EventsEndpoints
             }
             return Results.Ok(meListVMInit);
         }).RequireAuthorization(PoliciesClaim.ReadAccess);
+
+
+
+
 
 
 

@@ -61,5 +61,13 @@ public class EntityFrameworkEventRepository : IEventsRepository
         await dbContext.Events.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
 
+    public async Task<IEnumerable<Event>> GetAllExpiredEventsAsync()
+    {
+        var NumberOfDaysToPurge = 30;
+        var purgeDate = DateTime.UtcNow.AddDays(-NumberOfDaysToPurge);
 
+        return await dbContext.Events
+        .Where(e => e.EventDate <= purgeDate)
+        .AsNoTracking().ToListAsync();
+    }
 }
