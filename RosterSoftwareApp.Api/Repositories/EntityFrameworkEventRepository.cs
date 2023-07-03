@@ -24,13 +24,26 @@ public class EntityFrameworkEventRepository : IEventsRepository
         return await dbContext.Events.CountAsync();
     }
 
-    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize)
+    private IQueryable<Event> FilterOrderByClause(bool? orderByAsc)
+    {
+        if (orderByAsc == true)
+        {
+            return dbContext.Events
+                .OrderBy((e) => e.EventDate);
+        }
+        else
+        {
+            return dbContext.Events
+                .OrderByDescending((e) => e.EventDate);
+        }
+    }
+
+    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize, bool? orderByAsc)
     {
         var skipCount = (pageNumber - 1) * pageSize;
 
         // sample throw new InvalidOperationException("The database");
-        return await dbContext.Events
-        .OrderByDescending((e) => e.EventDate)
+        return await FilterOrderByClause(orderByAsc)
         .Skip(skipCount)
         .Take(pageSize)
         .AsNoTracking().ToListAsync();

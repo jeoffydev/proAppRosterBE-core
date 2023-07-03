@@ -48,7 +48,9 @@ public class InMemEventsRepository : IEventsRepository
         return await Task.FromResult(events.Count);
     }
 
-    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize)
+
+
+    public async Task<IEnumerable<Event>> GetAllAsync(int pageNumber, int pageSize, bool? orderByAsc)
     {
         var skipCount = (pageNumber - 1) * pageSize;
         return await Task.FromResult(events.Skip(skipCount).Take(pageSize));
@@ -92,4 +94,5 @@ public class InMemEventsRepository : IEventsRepository
     {
         return await Task.FromResult(events);
     }
+
 }
