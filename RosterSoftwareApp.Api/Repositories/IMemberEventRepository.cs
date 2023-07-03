@@ -12,5 +12,5 @@ public interface IMemberEventRepository
     Task<MemberEvent?> GetMemberEventAsync(MemberEvent me);
     Task<MemberEvent?> GetMemberEventByIdAsync(int id);
 
-    Task<IEnumerable<MemberEvent>> GetMemberEventByMemberIdAsync(string id);
+    Task<IEnumerable<MemberEvent>> GetMemberEventByMemberIdAsync(string id, bool? orderByAsc);
 }

@@ -62,9 +62,23 @@ public class EntityFrameworkMemberEventRepository : IMemberEventRepository
     }
 
     // Members area
-    public async Task<IEnumerable<MemberEvent>> GetMemberEventByMemberIdAsync(string id)
+    private IQueryable<MemberEvent> FilterOrderByClause(bool? orderByAsc)
     {
-        return await dbContext.MemberEvents
+        if (orderByAsc == true)
+        {
+            return dbContext.MemberEvents
+               .OrderBy(i => i.Event != null ? i.Event.EventDate : null);
+        }
+        else
+        {
+            return dbContext.MemberEvents
+                .OrderByDescending(i => i.Event != null ? i.Event.EventDate : null);
+        }
+    }
+
+    public async Task<IEnumerable<MemberEvent>> GetMemberEventByMemberIdAsync(string id, bool? orderByAsc)
+    {
+        return await FilterOrderByClause(orderByAsc)
         .Include(m => m.MemberInstrument)
         .Include(i => i.Event)
         .AsNoTracking()

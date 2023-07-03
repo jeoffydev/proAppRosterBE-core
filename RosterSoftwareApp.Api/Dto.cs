@@ -5,7 +5,7 @@ namespace RosterSoftwareApp.Api.Dtos;
 
 public record GetEventPaginationDto(
     int pageNumber = 1,
-    int pageSize = 5,
+    int pageSize = 8,
     bool? orderByAsc = false
 );
 

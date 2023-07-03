@@ -142,7 +142,8 @@ public static class EventsEndpoints
             IInstrumentRepository instrumentRepository,
             string id) =>
         {
-            IEnumerable<MemberEvent> memberEvents = await memberEventRepository.GetMemberEventByMemberIdAsync(id);
+            // false for orderBy is temporary until new version changes
+            IEnumerable<MemberEvent> memberEvents = await memberEventRepository.GetMemberEventByMemberIdAsync(id, false);
             var meListVMInit = new List<MemberEventListViewModel>();
 
             foreach (var me in memberEvents)
