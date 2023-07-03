@@ -12,7 +12,8 @@ public record SongDto(
     string? Artist,
     string? SongUrl,
     string? Description,
-    bool ToLearn
+    bool ToLearn,
+    string? YoutubeEmbed
 );
 
 public record CreateSongDto(
@@ -22,7 +23,8 @@ public record CreateSongDto(
     string? Artist,
     string? SongUrl,
     string? Description,
-    bool ToLearn
+    bool ToLearn,
+    string? YoutubeEmbed
 );
 
 public record UpdateSongDto(
@@ -32,5 +34,6 @@ public record UpdateSongDto(
     string? Artist,
     string? SongUrl,
     string? Description,
-    bool ToLearn
+    bool ToLearn,
+    string? YoutubeEmbed
 );

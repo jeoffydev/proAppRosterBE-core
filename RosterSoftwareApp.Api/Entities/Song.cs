@@ -14,4 +14,6 @@ public class Song
     public string? Description { get; set; }
     public bool ToLearn { get; set; } = false;
 
+    public string? YoutubeEmbed { get; set; }
+
 }

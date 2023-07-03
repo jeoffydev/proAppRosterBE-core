@@ -41,7 +41,8 @@ public static class SongsEndpoints
                 Artist = sDto.Artist,
                 SongUrl = sDto.SongUrl,
                 Description = sDto.Description,
-                ToLearn = sDto.ToLearn
+                ToLearn = sDto.ToLearn,
+                YoutubeEmbed = sDto.YoutubeEmbed
             };
             await songRepository.CreateSongAsync(so);
             // return the latest created using the Get by ID
@@ -63,6 +64,7 @@ public static class SongsEndpoints
             so.SongUrl = updateSongDto.SongUrl;
             so.Description = updateSongDto.Description;
             so.ToLearn = updateSongDto.ToLearn;
+            so.YoutubeEmbed = updateSongDto.YoutubeEmbed;
 
             await songRepository.UpdateSongAsync(so);
 
