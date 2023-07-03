@@ -30,7 +30,8 @@ public static class EventsEndpoints
 
             return Results.Ok((await eventsRepository.GetAllAsync(
                 request.pageNumber,
-                request.pageSize
+                request.pageSize,
+                request.orderByAsc
                 )).Select(e => e.AsDto()));
 
         }).RequireAuthorization(PoliciesClaim.WriteAccess);
