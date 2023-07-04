@@ -38,6 +38,8 @@ builder.Services.AddSwaggerGen()
                 .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
                 .AddEndpointsApiExplorer();
 
+builder.Logging.AddAzureWebAppDiagnostics();
+
 var app = builder.Build();
 
 // Error handler built-in exception * from folder ErrorHandling/

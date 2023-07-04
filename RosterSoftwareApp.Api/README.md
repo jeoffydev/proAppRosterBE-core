@@ -60,3 +60,9 @@ Then change into Endpoint
 # API documentation and support for versioning
 dotnet add package Swashbuckle.AspNetCore
 dotnet add package Asp.Versioning.Mvc.ApiExplorer
+
+# Login to Azure App Services for deployment
+
+dotnet add package Microsoft.Extensions.Logging.AzureAppServices
+
+Install azure tools extension in VS
