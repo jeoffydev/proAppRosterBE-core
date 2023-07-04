@@ -35,6 +35,9 @@ dotnet user-secrets set "ConnectionStrings:RosterAppContext" "Server=localhost; 
 Check if working:
 dotnet user-secrets list
 
+# Auth0 create token manually via terminal
+dotnet user-jwts create --role "Admin/Member" --scope "roster:write/read"
+
 # Install package for Entity Framework Core
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
@@ -53,3 +56,7 @@ dotnet ef database update
 dotnet add package Asp.Versioning.Http
 Check under the csproj
 Then change into Endpoint
+
+# API documentation and support for versioning
+dotnet add package Swashbuckle.AspNetCore
+dotnet add package Asp.Versioning.Mvc.ApiExplorer

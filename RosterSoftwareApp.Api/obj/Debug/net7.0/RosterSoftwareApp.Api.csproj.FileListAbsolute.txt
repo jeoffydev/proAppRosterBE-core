@@ -82,3 +82,8 @@ c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0
 c:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\xunit.execution.dotnet.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Asp.Versioning.Abstractions.dll
 C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Asp.Versioning.Http.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Asp.Versioning.Mvc.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Asp.Versioning.Mvc.ApiExplorer.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Jeoffy\Sites\proAppRosterBE-core\RosterSoftwareApp.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll

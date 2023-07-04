@@ -6,6 +6,9 @@ using RosterSoftwareApp.Api.Authorization;
 using RosterSoftwareApp.Api.Cors;
 using RosterSoftwareApp.Api.Middleware;
 using RosterSoftwareApp.Api.ErrorHandling;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using RosterSoftwareApp.Api.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +28,15 @@ builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new(1.0);
     options.AssumeDefaultVersionWhenUnspecified = true;
-});
+})
+.AddApiExplorer(options => options.GroupNameFormat = "'v'VVV");
 
 // CORS 
 builder.Services.AddRosterCors(builder.Configuration);
+
+builder.Services.AddSwaggerGen()
+                .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
+                .AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -51,6 +59,21 @@ app.MapNotificationsEndpoint();
 app.MapMemberInstrumentsEndpoint();
 app.MapMemberEventsEndpoint();
 app.MapNoResultEndpoint();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var description in app.DescribeApiVersions())
+        {
+            var url = $"/swagger/{description.GroupName}/swagger.json";
+            var name = description.GroupName.ToUpperInvariant();
+            options.SwaggerEndpoint(url, name);
+        }
+    });
+}
+
 
 
 
