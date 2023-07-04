@@ -27,7 +27,8 @@ public static class EntityExtensions
             songs.Artist,
             songs.SongUrl,
             songs.Description,
-            songs.ToLearn
+            songs.ToLearn,
+            songs.YoutubeEmbed
         );
     }
 
